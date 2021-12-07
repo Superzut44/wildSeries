@@ -42,7 +42,7 @@ class CategoryController extends AbstractController
                 'Aucune catégorie nommée ' . $categoryName
             );
         }
-        $programs = $programRepository->findByCategory($category, ['id' => 'desc'], 3);
+        $programs = $programRepository->findByCategory($category, ['id' => 'asc'], 3);
 
         return $this->render('category/show.html.twig', [
             'category' => $category,
