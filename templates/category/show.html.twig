@@ -7,7 +7,7 @@
 
 {% for program in programs %}
     <div>
-        <h2>{{ program.id }} : {{ program.title }}</h2>
+        <h2>{{ program.title }}</h2>
         <p>{{ program.summary }}</p>
         <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
     </div>

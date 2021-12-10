@@ -5,15 +5,11 @@
 {% block body %}
 <div class="media">
     <h1>Saison {{ season.number }} de {{ program.title }}</a></h1>
-    <p>{{ season.description }}</p>
-    <p>Episodes :</p>
-    <div>
+    <p>Liste des épisodes</p>
+    <ul style="list-style: none;">
     {% for episode in season.episodes %}
-        <div>
-            <h2>{{ episode.number }} : {{ episode.title }}</h2>
-            <p>{{ episode.synopsis }}</p>
-        </div>
+            <li>Episode {{ episode.number }} : {{ episode.title }}</li>
     {% endfor %}
-    </div>
+    </ul>
 </div>
 {% endblock %}
