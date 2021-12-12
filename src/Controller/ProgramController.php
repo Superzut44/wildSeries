@@ -1,5 +1,7 @@
 <?php
+
 // src/Controller/ProgramController.php
+
 namespace App\Controller;
 
 use App\Entity\Program;
@@ -16,7 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
 * @Route("/program", name="program_")
 */
-Class ProgramController extends AbstractController
+class ProgramController extends AbstractController
 {
     /**
      * The controller for the category add form
@@ -24,7 +26,7 @@ Class ProgramController extends AbstractController
      *
      * @Route("/new", name="new")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager) : Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Create a new Program Object
         $program = new Program();
@@ -41,7 +43,7 @@ Class ProgramController extends AbstractController
             // Finally redirect to categories list
             return $this->redirectToRoute('program_index');
         }
-    
+
         // Render the form
         return $this->render('program/new.html.twig', [
             'program' => $program,
@@ -55,10 +57,10 @@ Class ProgramController extends AbstractController
     public function index(ProgramRepository $programRepository): Response
     {
         $programs = $programRepository->findAll();
-        
+
         return $this->render(
             'program/index.html.twig',
-        ['programs' => $programs]
+            ['programs' => $programs]
         );
     }
 
@@ -98,4 +100,3 @@ Class ProgramController extends AbstractController
         ]);
     }
 }
-
