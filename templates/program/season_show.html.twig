@@ -6,7 +6,7 @@
 <div class="media">
     <h1>Saison {{ season.number }} de {{ program.title }}</a></h1>
     <p>Liste des épisodes</p>
-    <ul style="list-style: none;">
+    <ul class="program_season_show">
     {% for episode in season.episodes %}
             <li>
                 <a href="{{ path('program_episode_show', { 

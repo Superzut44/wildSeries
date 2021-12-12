@@ -6,6 +6,31 @@ $textColorBlue: #1365a8;
 $textColorBlack: #3b3b3b;
 $textColorWhite: #ffffff;
 
-ul {
+body {
+    background-color: $secondary;
+}
+
+.program_season_show {
     list-style: none;
+}
+
+.program_index_figure {
+    border: 1px solid $primary;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
+
+.program_index_figcaption {
+    margin-top: auto;
+    border-bottom: 1px solid $primary;
+    padding: 10px;
+    text-align: center;
+}
+
+.program_index_container {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
 }

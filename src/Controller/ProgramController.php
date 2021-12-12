@@ -9,12 +9,45 @@ use App\Repository\ProgramRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\ProgramType;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
 * @Route("/program", name="program_")
 */
 Class ProgramController extends AbstractController
 {
+    /**
+     * The controller for the category add form
+     * Display the form or deal with it
+     *
+     * @Route("/new", name="new")
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager) : Response
+    {
+        // Create a new Program Object
+        $program = new Program();
+        // Create the associated Form
+        $form = $this->createForm(ProgramType::class, $program);
+        // Get data from HTTP request
+        $form->handleRequest($request);
+        // Was the form submitted ?
+        if ($form->isSubmitted()) {
+            // Persist Program Object
+            $entityManager->persist($program);
+            // Flush the persisted object
+            $entityManager->flush();
+            // Finally redirect to categories list
+            return $this->redirectToRoute('program_index');
+        }
+    
+        // Render the form
+        return $this->render('program/new.html.twig', [
+            'program' => $program,
+            "form" => $form->createView()]);
+    }
+
     /**
     * @Route("/", name="index")
     * @return Response A reponse instance
