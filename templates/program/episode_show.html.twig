@@ -3,10 +3,10 @@
 {% block title %}{{ episode.title }}{% endblock %}
 
 {% block body %}
-    <div>
-        <p>nom de la série : {{ program.title }}</p>
-        <p>numéro de la saison : {{ season.number }}</p>
-        <p>numéro et le titre de l'épisode : {{ episode.number }} et {{ episode.title }}</p>
-        <p>résumé de l'épisode : {{ episode.synopsis }}</p>
+    <div class="program_episode_show_container">
+        <h1>{{ program.title }}</h1>
+        <h3>Saison n° {{ season.number }}</h3>
+        <h4>Episode n° {{ episode.number }} : {{ episode.title }}</h4>
+        <h5>Résumé de l'épisode : {{ episode.synopsis }}</h5>
     </div>
 {% endblock %}

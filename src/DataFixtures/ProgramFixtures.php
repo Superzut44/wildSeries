@@ -17,23 +17,30 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             "categoryReference" => 'category_Humour'
         ],
         [ 
-            "title"=>"The Big Bang Theory2", 
-            "summary"=>"Leonard Hofstadter et Sheldon Cooper vivent en colocation à Pasadena, ville de l'agglomération de Los Angeles. Ce sont tous deux des physiciens surdoués, « geeks » de surcroît. C'est d'ailleurs autour de cela qu'est axée la majeure partie comique de la série. Ils partagent quasiment tout leur temps libre avec leurs deux amis Howard Wolowitz et Rajesh Koothrappali pour jouer à des jeux vidéo comme Halo, organiser un marathon de la saga Star Wars, jouer à des jeux de société comme le Boggle klingon ou de rôles tel que Donjons et Dragons, voire discuter de théories scientifiques très complexes.Leur univers routinier est perturbé lorsqu'une jeune femme, Penny, s'installe dans l'appartement d'en face. Leonard a immédiatement des vues sur elle et va tout faire pour la séduire ainsi que l'intégrer au groupe et à son univers, auquel elle ne connaît rien.", 
-            "poster"=>"https://upload.wikimedia.org/wikipedia/fr/6/69/BigBangTheory_Logo.png",
-            "categoryReference" => 'category_Humour'
+            "title"=>"Spartacus", 
+            "summary"=>"Spartacus est une série péplum américaine en 39 épisodes créée par Steven S. DeKnight sur la vie du gladiateur Spartacus et diffusée du 22 janvier 2010 au 12 avril 2013 sur Starz1. Robert Tapert et Sam Raimi en sont les producteurs exécutifs. ", 
+            "poster"=>"http://jmj41.com/video/affiches/Filmotech_01937.jpg",
+            "categoryReference" => 'category_Guerre'
         ],
         [ 
-            "title"=>"The Big Bang Theory3", 
-            "summary"=>"Leonard Hofstadter et Sheldon Cooper vivent en colocation à Pasadena, ville de l'agglomération de Los Angeles. Ce sont tous deux des physiciens surdoués, « geeks » de surcroît. C'est d'ailleurs autour de cela qu'est axée la majeure partie comique de la série. Ils partagent quasiment tout leur temps libre avec leurs deux amis Howard Wolowitz et Rajesh Koothrappali pour jouer à des jeux vidéo comme Halo, organiser un marathon de la saga Star Wars, jouer à des jeux de société comme le Boggle klingon ou de rôles tel que Donjons et Dragons, voire discuter de théories scientifiques très complexes.Leur univers routinier est perturbé lorsqu'une jeune femme, Penny, s'installe dans l'appartement d'en face. Leonard a immédiatement des vues sur elle et va tout faire pour la séduire ainsi que l'intégrer au groupe et à son univers, auquel elle ne connaît rien.", 
-            "poster"=>"https://upload.wikimedia.org/wikipedia/fr/6/69/BigBangTheory_Logo.png",
-            "categoryReference" => 'category_Humour'
+            "title"=>"Lucifer", 
+            "summary"=>"Lucifer est une série télévisée américaine créée par Tom Kapinos, adaptée du personnage de bandes dessinées", 
+            "poster"=>"https://fr.web.img4.acsta.net/pictures/15/11/10/13/35/055302.jpg",
+            "categoryReference" => 'category_Fantastique'
         ],
         [ 
-            "title"=>"The Big Bang Theory4", 
-            "summary"=>"Leonard Hofstadter et Sheldon Cooper vivent en colocation à Pasadena, ville de l'agglomération de Los Angeles. Ce sont tous deux des physiciens surdoués, « geeks » de surcroît. C'est d'ailleurs autour de cela qu'est axée la majeure partie comique de la série. Ils partagent quasiment tout leur temps libre avec leurs deux amis Howard Wolowitz et Rajesh Koothrappali pour jouer à des jeux vidéo comme Halo, organiser un marathon de la saga Star Wars, jouer à des jeux de société comme le Boggle klingon ou de rôles tel que Donjons et Dragons, voire discuter de théories scientifiques très complexes.Leur univers routinier est perturbé lorsqu'une jeune femme, Penny, s'installe dans l'appartement d'en face. Leonard a immédiatement des vues sur elle et va tout faire pour la séduire ainsi que l'intégrer au groupe et à son univers, auquel elle ne connaît rien.", 
-            "poster"=>"https://upload.wikimedia.org/wikipedia/fr/6/69/BigBangTheory_Logo.png",
-            "categoryReference" => 'category_Humour'
+            "title"=>"Breaking Bad", 
+            "summary"=>"Breaking Bad, ou Breaking Bad : Le Chimiste1 au Québec, est une série télévisée américaine en 62 épisodes de 47 minutes, créée par Vince Gilligan, diffusée simultanément du 20 janvier 2008 au 29 septembre 2013 sur AMC aux États-Unis et au Canada, et ensuite sur Netflix. ", 
+            "poster"=>"http://www.asud.org/wp-content/uploads/2014/01/Breaking-bad.jpg",
+            "categoryReference" => 'category_Fantastique'
         ],
+        [ 
+            "title"=>"The Walking Dead", 
+            "summary"=>"The Walking DeadNote 1 est une série télévisée d'horreur et dramatique américaine, adaptée par Frank Darabont et Robert Kirkman, créateur de la bande dessinée du même nom, aux États-Unis diffusée depuis le 31 octobre 2010 sur AMC1. ", 
+            "poster"=>"https://photos.tf1.fr/700/933/the-walking-dead-vignette_portrait-09f433-0@1x.webp",
+            "categoryReference" => 'category_Horreur'
+        ],
+        
     ];
 
     public function load(ObjectManager $manager): void
@@ -47,8 +54,12 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setPoster($programData['poster']);  
             $program->setCategory($this->getReference($programData['categoryReference'])); 
             $this->addReference('program_' . $programData['title'], $program);
+            if (preg_match("/the walking dead/i", $programData['title'])) {
+                foreach( ActorFixtures::ACTORS_THE_WALKING_DEAD as $i => $actorData ) { 
+                    $program->addActor($this->getReference('actor_' . $i));
+                }
+            }
             $manager->persist($program); 
- 
         }
         $manager->flush(); 
     }
@@ -56,7 +67,8 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-          CategoryFixtures::class,
+            ActorFixtures::class,
+            CategoryFixtures::class,
         ];
     }
 }

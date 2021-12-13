@@ -15,6 +15,7 @@ class CategoryFixtures extends Fixture
         'Fantastique',
         'Horreur',
         'Humour',
+        'Guerre',
     ];
     public function load(ObjectManager $manager)
     {
