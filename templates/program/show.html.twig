@@ -8,7 +8,7 @@
         <div class="program_show_text">
             <h1>{{ program.title }}</h1>
             <p class="program_show_summary">{{ program.summary }}</p>
-            <h3>Catégorie :</h3> 
+            <h3>Catégorie :</h3>
             <p>{{ program.category.name }}</p>
             {% for season in program.seasons %}
                 <a href="{{ path('program_season_show', { program: program.id , season: season.id }) }}">{{ season.description }}</a></br>
