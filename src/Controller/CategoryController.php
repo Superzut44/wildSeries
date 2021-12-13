@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
@@ -23,7 +24,7 @@ class CategoryController extends AbstractController
      *
      * @Route("/new", name="new")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager) : Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Create a new Category Object
         $category = new Category();
@@ -40,7 +41,7 @@ class CategoryController extends AbstractController
             // Finally redirect to categories list
             return $this->redirectToRoute('category_index');
         }
-    
+
         // Render the form
         return $this->render('category/new.html.twig', ["form" => $form->createView()]);
     }
@@ -55,7 +56,7 @@ class CategoryController extends AbstractController
 
         return $this->render(
             'category/index.html.twig',
-        ['categories' => $categories]
+            ['categories' => $categories]
         );
     }
 
