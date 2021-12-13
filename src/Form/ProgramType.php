@@ -6,7 +6,7 @@ use App\Entity\Program;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;   // FileType    PassWordType
 
 class ProgramType extends AbstractType
 {
@@ -15,7 +15,7 @@ class ProgramType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('summary', TextType::class)
-            ->add('poster', TextType::class)
+            ->add('poster', TextType::class)    // FileType::class    PasswordType
             ->add('category', null, ['choice_label' => 'name'])
         ;
     }
