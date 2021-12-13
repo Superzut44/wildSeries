@@ -20,6 +20,9 @@ body {
     display: flex;
     flex-direction: column;
     margin: 2rem;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
 }
 
 .program_index_figcaption {
@@ -33,4 +36,5 @@ body {
     padding: 10px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }

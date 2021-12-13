@@ -9,6 +9,7 @@
     <section class="program_index_container">
         {% for program in programs %}
             <figure class="program_index_figure">
+            <img src="{{program.poster}}" alt="{{ program.title }} poster">
                 <figcaption class="program_index_figcaption">
                     <p>{{ loop.index }} / {{ program.title }}</p>
                     <p>Catégorie : {{ program.category.name }}</p>
