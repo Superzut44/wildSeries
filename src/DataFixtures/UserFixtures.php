@@ -11,26 +11,26 @@ class UserFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher) 
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
     }
 
-    public const USERS = [ 
-        [ 
-            "email" => "Xav@email.com", 
-            "password" => "Xav", 
+    public const USERS = [
+        [
+            "email" => "Xav@email.com",
+            "password" => "Xav",
             "role" => ["ROLE_ADMIN"],
         ],
-        [ 
-            "email" => "Lambda@email.com", 
-            "password" => "Lambda", 
+        [
+            "email" => "Lambda@email.com",
+            "password" => "Lambda",
             "role" => ["ROLE_CONTRIBUTOR"],
         ],
     ];
 
     public function load(ObjectManager $manager): void
-    {   
+    {
         foreach (self::USERS as $userData) {
             $contributor = new User();
             $contributor->setEmail($userData['email']);
@@ -44,7 +44,7 @@ class UserFixtures extends Fixture
 
             $manager->persist($contributor);
         }
-        
+
         $manager->flush();
     }
 
