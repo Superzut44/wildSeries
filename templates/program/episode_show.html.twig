@@ -3,10 +3,18 @@
 {% block title %}{{ episode.title }}{% endblock %}
 
 {% block body %}
-    <div class="program_episode_show_container">
-        <h1>{{ program.title }}</h1>
-        <h3>Saison n° {{ season.number }}</h3>
-        <h4>Episode n° {{ episode.number }} : {{ episode.title }}</h4>
-        <h5>Résumé de l'épisode : {{ episode.synopsis }}</h5>
-    </div>
+    <section class="program_episode_show_section">
+        <div class="program_episode_show_container">
+            <h1>{{ program.title }}</h1>
+            <h3>Saison n° {{ season.number }}</h3>
+            <h4>Episode n° {{ episode.number }} : {{ episode.title }}</h4>
+            <h5>Résumé de l'épisode : {{ episode.synopsis }}</h5>
+        </div>
+        <div class="program_episode_show_comment">
+        {% if app.user %}
+            <p>Ajouter un commentaire</p>
+            {% include "comment/_form.html.twig" %}
+        {% endif %}
+        </div>
+    </section>
 {% endblock %}

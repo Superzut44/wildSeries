@@ -12,7 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ProgramType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
-
+use App\Entity\Comment;
+use App\Form\CommentType;
 /**
 * @Route("/program", name="program_")
 */
@@ -86,16 +87,27 @@ Class ProgramController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{program}/season/{season}/episode/{episode}", name="episode_show")
-     */
-    public function showEpisode(Program $program, Season $season, Episode $episode): Response
+    
+    #[Route('/{program}/season/{season}/episode/{episode}', name: 'episode_show', methods: ['GET', 'POST'])]
+    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('program/episode_show.html.twig', [
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setEpisode(($episode));
+            $comment->setAuthor($this->getUser());
+            $entityManager->persist($comment);
+            $entityManager->flush();
+        }
+
+        return $this->renderForm('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
+            'comment' => $comment,
+            'form' => $form,
         ]);
     }
 }
-

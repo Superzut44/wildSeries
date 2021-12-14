@@ -80,3 +80,14 @@ body {
     margin-top: 5rem;
     padding: 0 4rem;
 }
+
+.program_episode_show_section {
+    display: flex;
+    flex-direction: row;
+}
+
+.program_episode_show_comment {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+}
