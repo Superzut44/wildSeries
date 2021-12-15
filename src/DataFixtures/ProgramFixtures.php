@@ -58,6 +58,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
                     $program->addActor($this->getReference('actor_' . $i));
                 }
             }
+            $program->setOwner($this->getReference('user_Xav@email.com'));
             $manager->persist($program);
         }
         $manager->flush();
@@ -68,6 +69,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         return [
             ActorFixtures::class,
             CategoryFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

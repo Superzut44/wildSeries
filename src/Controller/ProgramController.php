@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
 * @Route("/program", name="program_")
@@ -39,6 +40,8 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
         // Was the form submitted ?
         if ($form->isSubmitted() && $form->isValid()) {
+            // Add user actuel
+            $program->setOwner($this->getUser());
             // Persist Program Object
             $entityManager->persist($program);
             // Flush the persisted object
@@ -112,6 +115,30 @@ class ProgramController extends AbstractController
             'season' => $season,
             'episode' => $episode,
             'comments' => $commentRepository->findByEpisode($episode, ['id' => 'asc']),
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Program $program, Season $season, EntityManagerInterface $entityManager): Response
+    {
+        // Check wether the logged in user is the owner of the program
+        if (!($this->getUser() == $program->getOwner())) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw new AccessDeniedException('Only the owner can edit the program!');
+        }
+        $form = $this->createForm(programType::class, $program);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('program/edit.html.twig', [
+            'season' => $season,
+            'program' => $program,
             'form' => $form,
         ]);
     }
