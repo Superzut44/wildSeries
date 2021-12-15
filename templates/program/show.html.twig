@@ -10,8 +10,11 @@
             <p class="program_show_summary">{{ program.summary }}</p>
             <h3>Catégorie :</h3> 
             <p>{{ program.category.name }}</p>
+            <a href="{{ path('program_edit', {'id': program.id}) }}">editer la série</a>
             {% for season in program.seasons %}
-                <a href="{{ path('program_season_show', { program: program.id , season: season.id }) }}">{{ season.description }}</a></br>
+                <div class="program_show_season-edit">
+                    <a href="{{ path('program_season_show', { program: program.id , season: season.id }) }}">{{ season.description }}</a>
+                </div>
             {% endfor %}
             {% if program.actors %}
             <h3>Liste des acteurs :</h3>

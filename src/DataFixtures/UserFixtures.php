@@ -40,12 +40,12 @@ class UserFixtures extends Fixture
                 $contributor,
                 $userData['password']
             );
+            $this->addReference('user_' . $userData['email'], $contributor);
             $contributor->setPassword($hashedPassword);
-
             $manager->persist($contributor);
+
         }
         
         $manager->flush();
     }
-
 }
