@@ -10,11 +10,19 @@
             <h4>Episode n° {{ episode.number }} : {{ episode.title }}</h4>
             <h5>Résumé de l'épisode : {{ episode.synopsis }}</h5>
         </div>
-        <div class="program_episode_show_comment">
+        <div class="program_episode_show_comment-form">
         {% if app.user %}
             <p>Ajouter un commentaire</p>
             {% include "comment/_form.html.twig" %}
         {% endif %}
+        <div class="program_episode_show_comment">
+            {%if episode.comments %}
+                <p>Commentaires</strong> :</p>
+                <ul>
+                {% for comment in comments %}
+                    <li>{{ comment.comment }}</li>
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 {% endblock %}
