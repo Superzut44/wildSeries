@@ -8,6 +8,7 @@ use App\Entity\Program;
 use App\Entity\Season;
 use App\Entity\Episode;
 use App\Repository\ProgramRepository;
+use App\Repository\CommentRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,12 +93,13 @@ class ProgramController extends AbstractController
 
 
     #[Route('/{program}/season/{season}/episode/{episode}', name: 'episode_show', methods: ['GET', 'POST'])]
-    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager): Response
+    public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-
+        
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setEpisode(($episode));
             $comment->setAuthor($this->getUser());
@@ -109,7 +111,7 @@ class ProgramController extends AbstractController
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
-            'comment' => $comment,
+            'comments' => $commentRepository->findByEpisode($episode, ['id' => 'asc']),
             'form' => $form,
         ]);
     }
