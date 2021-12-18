@@ -16,8 +16,8 @@
             {% include "comment/_form.html.twig" %}
         {% endif %}
         <div class="program_episode_show_comment">
-            {%if episode.comments %}
-                <p>Commentaires</strong> :</p>
+            {%if episode.comments is not empty%}
+                <p>Commentaires:</p>
                 <ul>
                 {% for comment in comments %}
                     <li>{{ comment.comment }}</li>
