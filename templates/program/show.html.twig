@@ -10,7 +10,9 @@
             <p class="program_show_summary">{{ program.summary }}</p>
             <h3>Catégorie :</h3> 
             <p>{{ program.category.name }}</p>
-            <a href="{{ path('program_edit', {'id': program.id}) }}">editer la série</a>
+            {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('program_edit', { 'id': program.id} ) }}">Éditer</a>
+            {%endif%}
             {% for season in program.seasons %}
                 <div class="program_show_season-edit">
                     <a href="{{ path('program_season_show', { program: program.id , season: season.id }) }}">{{ season.description }}</a>
