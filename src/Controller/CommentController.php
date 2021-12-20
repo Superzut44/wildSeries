@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/comment')]
 class CommentController extends AbstractController
@@ -22,6 +23,9 @@ class CommentController extends AbstractController
         ]);
     }
 
+    /**
+     * @IsGranted("ROLE_USER")
+     */
     #[Route('/new', name: 'comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -49,10 +53,17 @@ class CommentController extends AbstractController
             'comment' => $comment,
         ]);
     }
-
+    /**
+     * @IsGranted("ROLE_USER")
+     */
     #[Route('/{id}/edit', name: 'comment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
+        // Check wether the logged in user is the owner of the program
+        if (!($this->getUser() == $comment->getAuthor())) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw new AccessDeniedException('Only the owner can edit the program!');
+        }
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -68,9 +79,17 @@ class CommentController extends AbstractController
         ]);
     }
 
+    /**
+     * @IsGranted("ROLE_CONTRIBUTOR")
+     */
     #[Route('/{id}', name: 'comment_delete', methods: ['POST'])]
     public function delete(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
+        // Check wether the logged in user is the owner of the program
+        if (!($this->getUser() == $comment->getAuthor()) && !$this->isGranted('ROLE_ADMIN')) {
+            // If not the owner, throws a 403 Access Denied exception
+            throw new AccessDeniedException('Only the owner can edit the program!');
+        }
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $entityManager->remove($comment);
             $entityManager->flush();
