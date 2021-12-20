@@ -13,14 +13,24 @@
         <div class="program_episode_show_comment-form">
         {% if app.user %}
             <p>Ajouter un commentaire</p>
-            {% include "comment/_form.html.twig" %}
+            {{ form_start(form) }}
+              {{ form_widget(form) }}
+                <button class="btn">{{ button_label|default('Save') }}</button>
+            {{ form_end(form) }}
         {% endif %}
         <div class="program_episode_show_comment">
             {%if episode.comments is not empty%}
                 <p>Commentaires:</p>
                 <ul>
                 {% for comment in comments %}
-                    <li>{{ comment.comment }}</li>
+                    <li>
+                        <p>{{ comment.comment }}</p>
+                        <p>{{ dump(comment.episode) }}</p>
+                        <form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                            <button class="btn">Delete</button>
+                        </form>
+                    </li>
                 {% endfor %}
             {% endif %}
         </div>
