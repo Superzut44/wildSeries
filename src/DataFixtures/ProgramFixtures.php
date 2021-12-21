@@ -6,6 +6,7 @@ use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use App\Service\Slugify;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -43,6 +44,13 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
 
     ];
 
+    private Slugify $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        $this->slugify = $slugify;
+    }
+
     public function load(ObjectManager $manager): void
     {
         foreach (self::PROGRAMS as $programData) {
@@ -52,6 +60,9 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setSummary($programData['summary']);
             $program->setPoster($programData['poster']);
             $program->setCategory($this->getReference($programData['categoryReference']));
+            $slug = $this->slugify->generate($program->getTitle());
+            $program->setSlug($slug);
+
             $this->addReference('program_' . $programData['title'], $program);
             if (preg_match("/the walking dead/i", $programData['title'])) {
                 foreach (ActorFixtures::ACTORS_THE_WALKING_DEAD as $i => $actorData) {

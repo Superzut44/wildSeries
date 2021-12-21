@@ -4,20 +4,22 @@
 
 namespace App\Controller;
 
-use App\Entity\Program;
 use App\Entity\Season;
+use App\Entity\Comment;
 use App\Entity\Episode;
-use App\Repository\ProgramRepository;
+use App\Entity\Program;
+use App\Service\Slugify;
+use App\Form\CommentType;
+use App\Form\ProgramType;
 use App\Repository\CommentRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ProgramRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\ProgramType;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Comment;
-use App\Form\CommentType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
 * @Route("/program", name="program_")
@@ -30,7 +32,7 @@ class ProgramController extends AbstractController
      *
      * @Route("/new", name="new")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         // Create a new Program Object
         $program = new Program();
@@ -42,6 +44,9 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Add user actuel
             $program->setOwner($this->getUser());
+            // Slug
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
             // Persist Program Object
             $entityManager->persist($program);
             // Flush the persisted object
@@ -72,8 +77,8 @@ class ProgramController extends AbstractController
 
     /**
      * Getting a program by id
-     *
-     * @Route("/show/{id<^[0-9]+$>}", name="show")
+     * @Route("/show/{slug}", name="show")
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      * @return Response
      */
     public function show(Program $program): Response
