@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
-* @Route("/program", name="program_")
+* @Route("/program", name="program")
 */
 class ProgramController extends AbstractController
 {
@@ -30,7 +30,7 @@ class ProgramController extends AbstractController
      * The controller for the category add form
      * Display the form or deal with it
      *
-     * @Route("/new", name="new")
+     * @Route("/new", name="_new")
      */
     public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
@@ -62,7 +62,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-    * @Route("/", name="index")
+    * @Route("/", name="_index")
     * @return Response A reponse instance
     */
     public function index(ProgramRepository $programRepository): Response
@@ -77,7 +77,7 @@ class ProgramController extends AbstractController
 
     /**
      * Getting a program by slug
-     * @Route("/show/{slug}", name="show")
+     * @Route("/{slug}", name="_show")
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      * @return Response
      */
@@ -89,7 +89,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/season/{season}", name="season_show")
+     * @Route("/{slug}/season/{season}", name="_season_show")
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      */
     public function showSeason(Program $program, Season $season): Response
@@ -101,7 +101,7 @@ class ProgramController extends AbstractController
     }
 
 
-    #[Route('/{slug}/season/{season}/episode/{episode}', name: 'episode_show', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/season/{season}/episode/{episode}', name: '_episode_show', methods: ['GET', 'POST'])]
     public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
@@ -125,7 +125,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request, 
         Program $program, 
