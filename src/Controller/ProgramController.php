@@ -106,8 +106,8 @@ class ProgramController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        
-        
+
+
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setEpisode(($episode));
             $comment->setAuthor($this->getUser());
