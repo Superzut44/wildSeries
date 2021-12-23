@@ -2,9 +2,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use App\Entity\Episode;
+use App\Service\Slugify;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class EpisodeFixtures extends Fixture implements DependentFixtureInterface
@@ -34,20 +35,27 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             "seasonReference" => 'season_1'
         ],
         [ 
-            "title"=>"Unaired Pilot", 
+            "title"=>"Unaired Pilot4", 
             "number"=>4, 
             "synopsis"=>"Leonard gets upset when he discovers that Penny is seeing a new guy, so he tries 
             to trick her into going on a date with him.",
             "seasonReference" => 'season_1'
         ],
         [ 
-            "title"=>"Unaired Pilot", 
+            "title"=>"Unaired Pilot5", 
             "number"=>5, 
             "synopsis"=>"Sheldon's mother is called to intervene when he delves into numerous obsessions 
             after being fired for being disrespectful to his new boss.",
             "seasonReference" => 'season_1'
         ],
     ];
+
+    private Slugify $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        $this->slugify = $slugify;
+    }
 
     public function load(ObjectManager $manager): void
     {
@@ -58,7 +66,9 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             $episode->setTitle($episodeData['title']);  
             $episode->setnumber($episodeData['number']);  
             $episode->setSynopsis($episodeData['synopsis']);  
-            $episode->setSeason($this->getReference($episodeData['seasonReference'])); 
+            $episode->setSeason($this->getReference($episodeData['seasonReference']));
+            $slug = $this->slugify->generate($episode->getTitle());
+            $episode->setSlug($slug);
 
             $manager->persist($episode); 
 

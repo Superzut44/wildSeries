@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
-* @Route("/program", name="program_")
+* @Route("/program", name="program")
 */
 class ProgramController extends AbstractController
 {
@@ -30,7 +30,7 @@ class ProgramController extends AbstractController
      * The controller for the category add form
      * Display the form or deal with it
      *
-     * @Route("/new", name="new")
+     * @Route("/new", name="_new")
      */
     public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
@@ -62,7 +62,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-    * @Route("/", name="index")
+    * @Route("/", name="_index")
     * @return Response A reponse instance
     */
     public function index(ProgramRepository $programRepository): Response
@@ -76,8 +76,8 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * Getting a program by id
-     * @Route("/show/{slug}", name="show")
+     * Getting a program by slug
+     * @Route("/{slug}", name="_show")
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      * @return Response
      */
@@ -89,7 +89,8 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{program}/season/{season}", name="season_show")
+     * @Route("/{slug}/season/{season}", name="_season_show")
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      */
     public function showSeason(Program $program, Season $season): Response
     {
@@ -100,7 +101,9 @@ class ProgramController extends AbstractController
     }
 
 
-    #[Route('/{program}/season/{season}/episode/{episode}', name: 'episode_show', methods: ['GET', 'POST'])]
+    #[Route('/{program_slug}/season/{season}/episode/{episode_slug}', name: '_episode_show', methods: ['GET', 'POST'])]
+    #[ParamConverter('program', options: ['mapping' => ['program_slug' => 'slug']])]
+    #[ParamConverter('episode', options: ['mapping' => ['episode_slug' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
@@ -124,8 +127,13 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Program $program, Season $season, EntityManagerInterface $entityManager): Response
+    #[Route('/{slug}/edit', name: '_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request, 
+        Program $program, 
+        Season $season, 
+        EntityManagerInterface $entityManager,
+        Slugify $slugify): Response
     {
         // Check wether the logged in user is the owner of the program
         if (!($this->getUser() == $program->getOwner())) {
@@ -136,6 +144,10 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Slug
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
@@ -146,5 +158,16 @@ class ProgramController extends AbstractController
             'program' => $program,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}', name: '_delete', methods: ['POST'])]
+    public function delete(Request $request, Program $program, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($program);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
     }
 }

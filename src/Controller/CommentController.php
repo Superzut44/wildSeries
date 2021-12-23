@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-#[Route('/comment')]
+#[Route('/comment', name: 'comment')]
 class CommentController extends AbstractController
 {
-    #[Route('/', name: 'comment_index', methods: ['GET'])]
+    #[Route('/', name: '_index', methods: ['GET'])]
     public function index(CommentRepository $commentRepository): Response
     {
         return $this->render('comment/index.html.twig', [
@@ -26,7 +26,7 @@ class CommentController extends AbstractController
     /**
      * @IsGranted("ROLE_USER")
      */
-    #[Route('/new', name: 'comment_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: '_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
@@ -46,7 +46,7 @@ class CommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'comment_show', methods: ['GET'])]
+    #[Route('/{id}', name: '_show', methods: ['GET'])]
     public function show(Comment $comment): Response
     {
         return $this->render('comment/show.html.twig', [
@@ -56,7 +56,7 @@ class CommentController extends AbstractController
     /**
      * @IsGranted("ROLE_USER")
      */
-    #[Route('/{id}/edit', name: 'comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
         // Check wether the logged in user is the owner of the program
@@ -82,7 +82,7 @@ class CommentController extends AbstractController
     /**
      * @IsGranted("ROLE_CONTRIBUTOR")
      */
-    #[Route('/{id}', name: 'comment_delete', methods: ['POST'])]
+    #[Route('/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
         // Check wether the logged in user is the owner of the program
