@@ -76,7 +76,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * Getting a program by id
+     * Getting a program by slug
      * @Route("/show/{slug}", name="show")
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      * @return Response
@@ -89,7 +89,8 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{program}/season/{season}", name="season_show")
+     * @Route("/{slug}/season/{season}", name="season_show")
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      */
     public function showSeason(Program $program, Season $season): Response
     {
@@ -100,7 +101,7 @@ class ProgramController extends AbstractController
     }
 
 
-    #[Route('/{program}/season/{season}/episode/{episode}', name: 'episode_show', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/season/{season}/episode/{episode}', name: 'episode_show', methods: ['GET', 'POST'])]
     public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
@@ -124,8 +125,13 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Program $program, Season $season, EntityManagerInterface $entityManager): Response
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request, 
+        Program $program, 
+        Season $season, 
+        EntityManagerInterface $entityManager,
+        Slugify $slugify): Response
     {
         // Check wether the logged in user is the owner of the program
         if (!($this->getUser() == $program->getOwner())) {
@@ -136,6 +142,9 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Slug
+            $slug = $slugify->generate($program->getTitle());
+            $program->setSlug($slug);
             $entityManager->flush();
 
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);

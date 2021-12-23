@@ -11,11 +11,11 @@
             <h3>Catégorie :</h3> 
             <p>{{ program.category.name }}</p>
             {% if is_granted("ROLE_ADMIN") %}
-                <a href="{{ path('program_edit', { 'id': program.id} ) }}">Éditer</a>
+                <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
             {%endif%}
             {% for season in program.seasons %}
                 <div class="program_show_season-edit">
-                    <a href="{{ path('program_season_show', { program: program.id , season: season.id }) }}">{{ season.description }}</a>
+                    <a href="{{ path('program_season_show', { slug: program.slug , season: season.id }) }}">{{ season.description }}</a>
                 </div>
             {% endfor %}
             {% if program.actors %}
