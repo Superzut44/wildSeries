@@ -101,7 +101,9 @@ class ProgramController extends AbstractController
     }
 
 
-    #[Route('/{slug}/season/{season}/episode/{episode}', name: '_episode_show', methods: ['GET', 'POST'])]
+    #[Route('/{program_slug}/season/{season}/episode/{episode_slug}', name: '_episode_show', methods: ['GET', 'POST'])]
+    #[ParamConverter('program', options: ['mapping' => ['program_slug' => 'slug']])]
+    #[ParamConverter('episode', options: ['mapping' => ['episode_slug' => 'slug']])]
     public function showEpisode(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
@@ -145,6 +147,7 @@ class ProgramController extends AbstractController
             // Slug
             $slug = $slugify->generate($program->getTitle());
             $program->setSlug($slug);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
