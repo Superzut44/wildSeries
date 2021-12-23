@@ -13,31 +13,31 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
         [
             "number"=>1,
             "year"=>2007, 
-            "description"=>"Season 1",
+            "description"=>"The Big Bang Theory Season 1",
             "programReference" => 'program_The Big Bang Theory'
         ],
         [ 
             "number"=>2, 
             "year"=>2008, 
-            "description"=>"Season 2",
+            "description"=>"The Big Bang Theory Season 2",
             "programReference" => 'program_The Big Bang Theory'
         ],
         [
             "number"=>3, 
             "year"=>2009, 
-            "description"=>"Season 3",
+            "description"=>"The Big Bang Theory Season 3",
             "programReference" => 'program_The Big Bang Theory'
         ],
         [ 
             "number"=>4, 
             "year"=>2010, 
-            "description"=>"Season 4",
+            "description"=>"The Big Bang Theory Season 4",
             "programReference" => 'program_The Big Bang Theory'
         ],
         [ 
             "number"=>5, 
             "year"=>2011, 
-            "description"=>"Season 5",
+            "description"=>"The Big Bang Theory Season 5",
             "programReference" => 'program_The Big Bang Theory'
         ],
     ];

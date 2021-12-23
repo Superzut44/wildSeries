@@ -35,14 +35,14 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
             "seasonReference" => 'season_1'
         ],
         [ 
-            "title"=>"Unaired Pilot", 
+            "title"=>"Unaired Pilot4", 
             "number"=>4, 
             "synopsis"=>"Leonard gets upset when he discovers that Penny is seeing a new guy, so he tries 
             to trick her into going on a date with him.",
             "seasonReference" => 'season_1'
         ],
         [ 
-            "title"=>"Unaired Pilot", 
+            "title"=>"Unaired Pilot5", 
             "number"=>5, 
             "synopsis"=>"Sheldon's mother is called to intervene when he delves into numerous obsessions 
             after being fired for being disrespectful to his new boss.",
