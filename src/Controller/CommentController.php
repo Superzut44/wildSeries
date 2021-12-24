@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/comment', name: 'comment')]
 class CommentController extends AbstractController
@@ -23,9 +24,7 @@ class CommentController extends AbstractController
         ]);
     }
 
-    /**
-     * @IsGranted("ROLE_USER")
-     */
+    #[IsGranted('ROLE_USER')]
     #[Route('/new', name: '_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
