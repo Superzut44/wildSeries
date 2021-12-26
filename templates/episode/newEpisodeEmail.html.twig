@@ -10,7 +10,7 @@
     <p>Titre de l'épisode : {{ episode.title }}</3>
     <p>Numéro : {{ episode.number }}</p>
     <p>Episode rattaché à la série : {{ episode.season.program.title }}</p>
-    <a href="{{ path('program_episode_show', { 
+    <a href="{{ path('program_episode_show', {
                 program_slug: episode.season.program.slug , season: episode.season.id , episode_slug: episode.slug }) }}"
                 >Lien vers les épisodes de cette série</a>
 </body>
