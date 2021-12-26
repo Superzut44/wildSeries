@@ -73,7 +73,7 @@ class EpisodeController extends AbstractController
             // Slug
             $slug = $slugify->generate($episode->getTitle());
             $episode->setSlug($slug);
-            
+
             $entityManager->flush();
 
             return $this->redirectToRoute('episode_index', [], Response::HTTP_SEE_OTHER);
