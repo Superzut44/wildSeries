@@ -144,8 +144,7 @@ class ProgramController extends AbstractController
         Season $season,
         EntityManagerInterface $entityManager,
         Slugify $slugify
-    ): Response
-    {
+    ): Response {
         // Check wether the logged in user is the owner of the program
         if (!($this->getUser() == $program->getOwner())) {
             // If not the owner, throws a 403 Access Denied exception
