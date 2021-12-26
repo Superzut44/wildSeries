@@ -139,11 +139,12 @@ class ProgramController extends AbstractController
 
     #[Route('/{slug}/edit', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(
-        Request $request, 
-        Program $program, 
-        Season $season, 
+        Request $request,
+        Program $program,
+        Season $season,
         EntityManagerInterface $entityManager,
-        Slugify $slugify): Response
+        Slugify $slugify
+    ): Response
     {
         // Check wether the logged in user is the owner of the program
         if (!($this->getUser() == $program->getOwner())) {
@@ -157,7 +158,7 @@ class ProgramController extends AbstractController
             // Slug
             $slug = $slugify->generate($program->getTitle());
             $program->setSlug($slug);
-            
+
             $entityManager->flush();
 
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
