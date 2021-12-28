@@ -15,14 +15,15 @@ class SeasonType extends AbstractType
             ->add('number')
             ->add('year')
             ->add('description')
-            ->add('program', null, ['choice_label' => 'title'])
-        ;
+            ->add('program', null, ['choice_label' => 'title']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => Season::class,
-        ]);
+            ]
+        );
     }
 }

@@ -13,14 +13,15 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('comment')
-            ->add('rate')
-        ;
+            ->add('rate');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => Comment::class,
-        ]);
+            ]
+        );
     }
 }

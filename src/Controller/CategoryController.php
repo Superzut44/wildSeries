@@ -13,16 +13,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
-* @Route("/category", name="category_")
-*/
+ * @Route("/category", name="category_")
+ */
 
 class CategoryController extends AbstractController
 {
     /**
      * The controller for the category add form
      * Display the form or deal with it
+     *
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/new", name="new")
+     * @Route("/new",           name="new")
      */
     public function new(Request $request, EntityManagerInterface $entityManager) : Response
     {
@@ -47,22 +48,22 @@ class CategoryController extends AbstractController
     }
 
     /**
-    * @Route("/", name="index")
-    * @return Response
-    */
+     * @Route("/", name="index")
+     * @return     Response
+     */
     public function index(CategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findAll();
 
         return $this->render(
             'category/index.html.twig',
-        ['categories' => $categories]
+            ['categories' => $categories]
         );
     }
 
     /**
      * @Route("/{categoryName}", name="show")
-     * @return Response
+     * @return                   Response
      */
     public function show(string $categoryName, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
     {
@@ -75,9 +76,11 @@ class CategoryController extends AbstractController
         }
         $programs = $programRepository->findByCategory($category, ['id' => 'asc'], 3);
 
-        return $this->render('category/show.html.twig', [
+        return $this->render(
+            'category/show.html.twig', [
             'category' => $category,
             'programs' => $programs
-        ]);
+            ]
+        );
     }
 }
