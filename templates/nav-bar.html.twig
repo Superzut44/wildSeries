@@ -32,7 +32,7 @@
           <a class="nav-link disabled">{{ app.user.email }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+          <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">Mon compte</a>
         </li>
         {% else %}
         <li class="nav-item">
