@@ -80,20 +80,22 @@ class ProgramController extends AbstractController
      */
     public function index(Request $request, ProgramRepository $programRepository): Response
     {
-    $form = $this->createForm(SearchProgramType::class);
-    $form->handleRequest($request);
+        $form = $this->createForm(SearchProgramType::class);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $search = $form->getData()['search'];
-        $programs = $programRepository->findLikeNameAndActorName($search);
-    } else {
-        $programs = $programRepository->findAll();
-    }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $programs = $programRepository->findLikeNameAndActorName($search);
+        } else {
+            $programs = $programRepository->findAll();
+        }
 
-    return $this->render('program/index.html.twig', [
-        'programs' => $programs,
-        'form' => $form->createView(),
-    ]);
+        return $this->render(
+            'program/index.html.twig', [
+            'programs' => $programs,
+            'form' => $form->createView(),
+            ]
+        );
     }
 
     /**

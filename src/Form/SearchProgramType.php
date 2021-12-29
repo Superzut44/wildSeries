@@ -12,14 +12,15 @@ class SearchProgramType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('search', SearchType::class, ['label' => 'Titre de série : '])
-        ;
+            ->add('search', SearchType::class, ['label' => 'Titre de série : ']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             // Configure your form options here
-        ]);
+            ]
+        );
     }
 }
