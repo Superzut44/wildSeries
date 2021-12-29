@@ -5,17 +5,23 @@
 {% block body %}
     <a href="{{ path('program_new') }}">Ajout à la liste</a></br>
     <a href="{{ path('app_index') }}">Retour à l'accueil</a>
-    <h1>Séries :</h1>
+    <h1>Toutes les séries</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button>Recherche une série</button>
+    {{ form_end(form) }}
+
     <section class="program_index_container">
         {% for program in programs %}
             <figure class="program_index_figure">
             <a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
             <img src="{{program.poster}}" alt="{{ program.title }} poster">
                 <figcaption class="program_index_figcaption">
-                    <p>{{ loop.index }} / {{ program.title }}</p>
+                    <p>{{ program.title }}</p>
                     <p>Catégorie : {{ program.category.name }}</p>
                 </figcaption>
-                <p class="program_index_p">{{ program.summary }}</p>      
+                <p class="program_index_p">{{ program.summary }}</p>
             </figure>
         {% else %}
             <p>Aucune série trouvée.</p>

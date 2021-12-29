@@ -66,7 +66,12 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference('program_' . $programData['title'], $program);
             if (preg_match("/the walking dead/i", $programData['title'])) {
                 foreach (ActorFixtures::ACTORS_THE_WALKING_DEAD as $i => $actorData) {
-                    $program->addActor($this->getReference('actor_' . $i));
+                    $program->addActor($this->getReference('actor_the_walking_dead_' . $i));
+                }
+            }
+            if (preg_match("/the big bang theory/i", $programData['title'])) {
+                foreach (ActorFixtures::ACTORS_THE_BIG_BANG_THEORY as $i => $actorData) {
+                    $program->addActor($this->getReference('actor_the_big_bang_theory_' . $i));
                 }
             }
             $program->setOwner($this->getReference('user_Xav@email.com'));
