@@ -31,6 +31,14 @@ class ProgramRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    public function DQLfindLikeName(string $name)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT p FROM App\Entity\Program p WHERE p.title LIKE '%$name%' ORDER BY p.title ASC");
+
+        return $query->execute();
+    }
+
     public function findLikeNameAndActorName(string $name)
     {
         $queryBuilder = $this->createQueryBuilder('p')
@@ -42,6 +50,14 @@ class ProgramRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $queryBuilder->getResult();
+    }
+
+    public function DQLfindLikeNameAndActorName(string $name)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT p FROM App\Entity\Program p JOIN App\Entity\Actor a WHERE p.title LIKE '%$name%' OR a.name LIKE '%$name%' ORDER BY p.title ASC");
+
+        return $query->execute();
     }
     // /**
     //  * @return Program[] Returns an array of Program objects
