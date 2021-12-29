@@ -68,7 +68,8 @@ class ProgramController extends AbstractController
 
         // Render the form
         return $this->render(
-            'program/new.html.twig', [
+            'program/new.html.twig',
+            [
             'program' => $program,
             "form" => $form->createView()]
         );
@@ -91,7 +92,8 @@ class ProgramController extends AbstractController
         }
 
         return $this->render(
-            'program/index.html.twig', [
+            'program/index.html.twig',
+            [
             'programs' => $programs,
             'form' => $form->createView(),
             ]
@@ -108,7 +110,8 @@ class ProgramController extends AbstractController
     public function show(Program $program): Response
     {
         return $this->render(
-            'program/show.html.twig', [
+            'program/show.html.twig',
+            [
             'program' => $program,
             ]
         );
@@ -121,7 +124,8 @@ class ProgramController extends AbstractController
     public function showSeason(Program $program, Season $season): Response
     {
         return $this->render(
-            'program/season_show.html.twig', [
+            'program/season_show.html.twig',
+            [
             'program' => $program,
             'season' => $season,
             ]
@@ -147,7 +151,8 @@ class ProgramController extends AbstractController
         }
 
         return $this->renderForm(
-            'program/episode_show.html.twig', [
+            'program/episode_show.html.twig',
+            [
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
@@ -184,7 +189,8 @@ class ProgramController extends AbstractController
         }
 
         return $this->renderForm(
-            'program/edit.html.twig', [
+            'program/edit.html.twig',
+            [
             'season' => $season,
             'program' => $program,
             'form' => $form,
