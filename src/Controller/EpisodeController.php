@@ -20,9 +20,11 @@ class EpisodeController extends AbstractController
     #[Route('/', name: '_index', methods: ['GET'])]
     public function index(EpisodeRepository $episodeRepository): Response
     {
-        return $this->render('episode/index.html.twig', [
+        return $this->render(
+            'episode/index.html.twig', [
             'episodes' => $episodeRepository->findAll(),
-        ]);
+            ]
+        );
     }
 
     #[Route('/new', name: '_new', methods: ['GET', 'POST'])]
@@ -49,18 +51,22 @@ class EpisodeController extends AbstractController
             return $this->redirectToRoute('episode_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('episode/new.html.twig', [
+        return $this->renderForm(
+            'episode/new.html.twig', [
             'episode' => $episode,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{slug}', name: '_show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {
-        return $this->render('episode/show.html.twig', [
+        return $this->render(
+            'episode/show.html.twig', [
             'episode' => $episode,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{slug}/edit', name: '_edit', methods: ['GET', 'POST'])]
@@ -79,10 +85,12 @@ class EpisodeController extends AbstractController
             return $this->redirectToRoute('episode_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('episode/edit.html.twig', [
+        return $this->renderForm(
+            'episode/edit.html.twig', [
             'episode' => $episode,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{slug}', name: '_delete', methods: ['POST'])]

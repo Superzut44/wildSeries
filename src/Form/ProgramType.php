@@ -19,18 +19,22 @@ class ProgramType extends AbstractType
             ->add('summary', TextType::class)
             ->add('poster', TextType::class)    // FileType::class    PasswordType
             ->add('category', null, ['choice_label' => 'name'])
-            ->add('actors', EntityType::class, [
+            ->add(
+                'actors', EntityType::class, [
                 'class' => Actor::class,
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-            ]);
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => Program::class,
-        ]);
+            ]
+        );
     }
 }

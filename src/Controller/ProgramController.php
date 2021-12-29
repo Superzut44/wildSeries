@@ -24,8 +24,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
-* @Route("/program", name="program")
-*/
+ * @Route("/program", name="program")
+ */
 class ProgramController extends AbstractController
 {
     /**
@@ -66,15 +66,17 @@ class ProgramController extends AbstractController
         }
 
         // Render the form
-        return $this->render('program/new.html.twig', [
+        return $this->render(
+            'program/new.html.twig', [
             'program' => $program,
-            "form" => $form->createView()]);
+            "form" => $form->createView()]
+        );
     }
 
     /**
-    * @Route("/", name="_index")
-    * @return Response A reponse instance
-    */
+     * @Route("/", name="_index")
+     * @return     Response A reponse instance
+     */
     public function index(ProgramRepository $programRepository): Response
     {
         $programs = $programRepository->findAll();
@@ -87,27 +89,32 @@ class ProgramController extends AbstractController
 
     /**
      * Getting a program by slug
-     * @Route("/{slug}", name="_show")
+     *
+     * @Route("/{slug}",          name="_show")
      * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
-     * @return Response
+     * @return                    Response
      */
     public function show(Program $program): Response
     {
-        return $this->render('program/show.html.twig', [
+        return $this->render(
+            'program/show.html.twig', [
             'program' => $program,
-        ]);
+            ]
+        );
     }
 
     /**
      * @Route("/{slug}/season/{season}", name="_season_show")
-     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
+     * @ParamConverter("program",        class="App\Entity\Program", options={"mapping": {"slug": "slug"}})
      */
     public function showSeason(Program $program, Season $season): Response
     {
-        return $this->render('program/season_show.html.twig', [
+        return $this->render(
+            'program/season_show.html.twig', [
             'program' => $program,
             'season' => $season,
-        ]);
+            ]
+        );
     }
 
 
@@ -128,13 +135,15 @@ class ProgramController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->renderForm('program/episode_show.html.twig', [
+        return $this->renderForm(
+            'program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
             'episode' => $episode,
             'comments' => $commentRepository->findByEpisode($episode, ['id' => 'asc']),
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{slug}/edit', name: '_edit', methods: ['GET', 'POST'])]
@@ -144,8 +153,7 @@ class ProgramController extends AbstractController
         Season $season,
         EntityManagerInterface $entityManager,
         Slugify $slugify
-    ): Response
-    {
+    ): Response {
         // Check wether the logged in user is the owner of the program
         if (!($this->getUser() == $program->getOwner())) {
             // If not the owner, throws a 403 Access Denied exception
@@ -164,11 +172,13 @@ class ProgramController extends AbstractController
             return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('program/edit.html.twig', [
+        return $this->renderForm(
+            'program/edit.html.twig', [
             'season' => $season,
             'program' => $program,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{id}', name: '_delete', methods: ['POST'])]

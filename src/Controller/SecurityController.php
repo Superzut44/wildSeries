@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -36,8 +36,10 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('category_index');
         }
 
-        return $this->render('security/register.html.twig', [
+        return $this->render(
+            'security/register.html.twig', [
             'securityForm' => $form->createView(),
-        ]);
+            ]
+        );
     }
 }

@@ -23,16 +23,16 @@ class Program
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string",   length=255)
      * @Assert\NotBlank(message="ne me laisse pas tout vide")
-     * @Assert\Length(max="255", maxMessage="La catégorie saisie {{ value }} est trop longue, elle ne devrait pas dépasser {{ limit }} caractères")
-    */
+     * @Assert\Length(max="255",    maxMessage="La catégorie saisie {{ value }} est trop longue, elle ne devrait pas dépasser {{ limit }} caractères")
+     */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="ne me laisse pas tout vide")
-     * @Assert\Regex("/plus belle la vie/i", match=false, message="On parle de vraies séries ici")
+     * @Assert\Regex("/plus         belle la vie/i", match=false, message="On parle de vraies séries ici")
      */
     private $summary;
 

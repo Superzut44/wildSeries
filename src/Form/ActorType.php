@@ -15,19 +15,23 @@ class ActorType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('programs', EntityType::class, [
+            ->add(
+                'programs', EntityType::class, [
                 'class' => Program::class,
                 'choice_label' => 'title',
                 'multiple' => true,
                 'expanded' => true,
-            ]);
+                ]
+            );
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(
+            [
             'data_class' => Actor::class,
-        ]);
+            ]
+        );
     }
 }

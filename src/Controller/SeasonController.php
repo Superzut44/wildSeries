@@ -17,9 +17,11 @@ class SeasonController extends AbstractController
     #[Route('/', name: '_index', methods: ['GET'])]
     public function index(SeasonRepository $seasonRepository): Response
     {
-        return $this->render('season/index.html.twig', [
+        return $this->render(
+            'season/index.html.twig', [
             'seasons' => $seasonRepository->findAll(),
-        ]);
+            ]
+        );
     }
 
     #[Route('/new', name: '_new', methods: ['GET', 'POST'])]
@@ -36,18 +38,22 @@ class SeasonController extends AbstractController
             return $this->redirectToRoute('season_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('season/new.html.twig', [
+        return $this->renderForm(
+            'season/new.html.twig', [
             'season' => $season,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{id}', name: '_show', methods: ['GET'])]
     public function show(Season $season): Response
     {
-        return $this->render('season/show.html.twig', [
+        return $this->render(
+            'season/show.html.twig', [
             'season' => $season,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
@@ -62,10 +68,12 @@ class SeasonController extends AbstractController
             return $this->redirectToRoute('season_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('season/edit.html.twig', [
+        return $this->renderForm(
+            'season/edit.html.twig', [
             'season' => $season,
             'form' => $form,
-        ]);
+            ]
+        );
     }
 
     #[Route('/{id}', name: '_delete', methods: ['POST'])]

@@ -38,11 +38,13 @@ class Slugify
     /* Générateur de Slug (Friendly Url) : convertit un titre en une URL conviviale.*/
     public function Slug($str)
     {
-        return mb_strtolower(preg_replace(
-            array('/[^a-zA-Z0-9 \'-]/', '/[ -\']+/', '/^-|-$/'),
-            array('', '-', ''),
-            $this->remove_accent($str)
-        ));
+        return mb_strtolower(
+            preg_replace(
+                array('/[^a-zA-Z0-9 \'-]/', '/[ -\']+/', '/^-|-$/'),
+                array('', '-', ''),
+                $this->remove_accent($str)
+            )
+        );
     }
 
     public function generate(string $input): string
