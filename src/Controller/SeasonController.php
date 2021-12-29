@@ -18,7 +18,8 @@ class SeasonController extends AbstractController
     public function index(SeasonRepository $seasonRepository): Response
     {
         return $this->render(
-            'season/index.html.twig', [
+            'season/index.html.twig',
+            [
             'seasons' => $seasonRepository->findAll(),
             ]
         );
@@ -39,7 +40,8 @@ class SeasonController extends AbstractController
         }
 
         return $this->renderForm(
-            'season/new.html.twig', [
+            'season/new.html.twig',
+            [
             'season' => $season,
             'form' => $form,
             ]
@@ -50,7 +52,8 @@ class SeasonController extends AbstractController
     public function show(Season $season): Response
     {
         return $this->render(
-            'season/show.html.twig', [
+            'season/show.html.twig',
+            [
             'season' => $season,
             ]
         );
@@ -69,7 +72,8 @@ class SeasonController extends AbstractController
         }
 
         return $this->renderForm(
-            'season/edit.html.twig', [
+            'season/edit.html.twig',
+            [
             'season' => $season,
             'form' => $form,
             ]

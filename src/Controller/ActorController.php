@@ -18,7 +18,8 @@ class ActorController extends AbstractController
     public function index(ActorRepository $actorRepository): Response
     {
         return $this->render(
-            'actor/index.html.twig', [
+            'actor/index.html.twig',
+            [
             'actors' => $actorRepository->findAll(),
             ]
         );
@@ -39,7 +40,8 @@ class ActorController extends AbstractController
         }
 
         return $this->renderForm(
-            'actor/new.html.twig', [
+            'actor/new.html.twig',
+            [
             'actor' => $actor,
             'form' => $form,
             ]
@@ -50,7 +52,8 @@ class ActorController extends AbstractController
     public function show(Actor $actor): Response
     {
         return $this->render(
-            'actor/show.html.twig', [
+            'actor/show.html.twig',
+            [
             'actor' => $actor,
             ]
         );
@@ -69,7 +72,8 @@ class ActorController extends AbstractController
         }
 
         return $this->renderForm(
-            'actor/edit.html.twig', [
+            'actor/edit.html.twig',
+            [
             'actor' => $actor,
             'form' => $form,
             ]

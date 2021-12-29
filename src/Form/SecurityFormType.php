@@ -19,7 +19,9 @@ class SecurityFormType extends AbstractType
         $builder
             ->add('email')
             ->add(
-                'agreeTerms', CheckboxType::class, [
+                'agreeTerms',
+                CheckboxType::class,
+                [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue(
@@ -31,7 +33,9 @@ class SecurityFormType extends AbstractType
                 ]
             )
             ->add(
-                'plainPassword', PasswordType::class, [
+                'plainPassword',
+                PasswordType::class,
+                [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,

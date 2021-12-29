@@ -20,7 +20,8 @@ class CommentController extends AbstractController
     public function index(CommentRepository $commentRepository): Response
     {
         return $this->render(
-            'comment/index.html.twig', [
+            'comment/index.html.twig',
+            [
             'comments' => $commentRepository->findAll(),
             ]
         );
@@ -42,7 +43,8 @@ class CommentController extends AbstractController
         }
 
         return $this->renderForm(
-            'comment/new.html.twig', [
+            'comment/new.html.twig',
+            [
             'comment' => $comment,
             'form' => $form,
             ]
@@ -53,7 +55,8 @@ class CommentController extends AbstractController
     public function show(Comment $comment): Response
     {
         return $this->render(
-            'comment/show.html.twig', [
+            'comment/show.html.twig',
+            [
             'comment' => $comment,
             ]
         );
@@ -79,7 +82,8 @@ class CommentController extends AbstractController
         }
 
         return $this->renderForm(
-            'comment/edit.html.twig', [
+            'comment/edit.html.twig',
+            [
             'comment' => $comment,
             'form' => $form,
             ]

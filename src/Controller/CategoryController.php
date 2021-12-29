@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
@@ -25,7 +26,7 @@ class CategoryController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new",           name="new")
      */
-    public function new(Request $request, EntityManagerInterface $entityManager) : Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Create a new Category Object
         $category = new Category();
@@ -42,7 +43,7 @@ class CategoryController extends AbstractController
             // Finally redirect to categories list
             return $this->redirectToRoute('category_index');
         }
-    
+
         // Render the form
         return $this->render('category/new.html.twig', ["form" => $form->createView()]);
     }
@@ -77,7 +78,8 @@ class CategoryController extends AbstractController
         $programs = $programRepository->findByCategory($category, ['id' => 'asc'], 3);
 
         return $this->render(
-            'category/show.html.twig', [
+            'category/show.html.twig',
+            [
             'category' => $category,
             'programs' => $programs
             ]

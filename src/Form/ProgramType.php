@@ -20,7 +20,9 @@ class ProgramType extends AbstractType
             ->add('poster', TextType::class)    // FileType::class    PasswordType
             ->add('category', null, ['choice_label' => 'name'])
             ->add(
-                'actors', EntityType::class, [
+                'actors',
+                EntityType::class,
+                [
                 'class' => Actor::class,
                 'choice_label' => 'name',
                 'multiple' => true,

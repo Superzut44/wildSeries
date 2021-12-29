@@ -21,7 +21,8 @@ class EpisodeController extends AbstractController
     public function index(EpisodeRepository $episodeRepository): Response
     {
         return $this->render(
-            'episode/index.html.twig', [
+            'episode/index.html.twig',
+            [
             'episodes' => $episodeRepository->findAll(),
             ]
         );
@@ -52,7 +53,8 @@ class EpisodeController extends AbstractController
         }
 
         return $this->renderForm(
-            'episode/new.html.twig', [
+            'episode/new.html.twig',
+            [
             'episode' => $episode,
             'form' => $form,
             ]
@@ -63,7 +65,8 @@ class EpisodeController extends AbstractController
     public function show(Episode $episode): Response
     {
         return $this->render(
-            'episode/show.html.twig', [
+            'episode/show.html.twig',
+            [
             'episode' => $episode,
             ]
         );
@@ -86,7 +89,8 @@ class EpisodeController extends AbstractController
         }
 
         return $this->renderForm(
-            'episode/edit.html.twig', [
+            'episode/edit.html.twig',
+            [
             'episode' => $episode,
             'form' => $form,
             ]
