@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Actor;
 use App\Entity\Program;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -21,15 +22,27 @@ class ProgramRepository extends ServiceEntityRepository
 
     public function findLikeName(string $name)
     {
-    $queryBuilder = $this->createQueryBuilder('p')
-        ->where('p.title LIKE :name')
-        ->setParameter('name', '%' . $name . '%')
-        ->orderBy('p.title', 'ASC')
-        ->getQuery();
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.title LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('p.title', 'ASC')
+            ->getQuery();
 
-    return $queryBuilder->getResult();
+        return $queryBuilder->getResult();
     }
 
+    public function findLikeNameAndActorName(string $name)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->join('p.actors', 'a')
+            ->where('p.title LIKE :name')
+            ->orWhere('a.name LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('p.title', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
     // /**
     //  * @return Program[] Returns an array of Program objects
     //  */
