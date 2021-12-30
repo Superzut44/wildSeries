@@ -59,7 +59,7 @@ class SeasonController extends AbstractController
         );
     }
 
-    #[Route('/{id}/edit', name: '_edit', methods: ['POST'])]
+    #[Route('/{id}/edit', name: '_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Season $season, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(SeasonType::class, $season);
