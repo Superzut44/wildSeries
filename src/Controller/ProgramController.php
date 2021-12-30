@@ -55,6 +55,8 @@ class ProgramController extends AbstractController
             // Flush the persisted object
             $entityManager->flush();
 
+            $this->addFlash('success', 'La nouvelle série a été créée');
+            
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('your_email@example.com')
@@ -198,12 +200,14 @@ class ProgramController extends AbstractController
         );
     }
 
-    #[Route('/{id}', name: '_delete', methods: ['POST'])]
+    #[Route('delete/{id}', name: '_delete', methods: ['POST'])]
     public function delete(Request $request, Program $program, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
             $entityManager->remove($program);
             $entityManager->flush();
+
+            $this->addFlash('danger', "La série a été supprimée");
         }
 
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
