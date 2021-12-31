@@ -70,6 +70,7 @@ class Program
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="watchlist")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $viewers;
 
@@ -226,7 +227,7 @@ class Program
     {
         if (!$this->viewers->contains($viewer)) {
             $this->viewers[] = $viewer;
-            $viewer->addWatchlist($this);
+            $viewer->addToWatchlist($this);
         }
 
         return $this;
@@ -235,7 +236,7 @@ class Program
     public function removeViewer(User $viewer): self
     {
         if ($this->viewers->removeElement($viewer)) {
-            $viewer->removeWatchlist($this);
+            $viewer->removeFromWatchlist($this);
         }
 
         return $this;

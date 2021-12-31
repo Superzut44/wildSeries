@@ -52,6 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\ManyToMany(targetEntity=Program::class, inversedBy="viewers")
      * @ORM\JoinTable(name="watchlist")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $watchlist;
 
@@ -200,7 +201,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->watchlist;
     }
 
-    public function addWatchlist(Program $program): self
+    public function addToWatchlist(Program $program): self
     {
         if (!$this->watchlist->contains($program)) {
             $this->watchlist[] = $program;
@@ -209,10 +210,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeWatchlist(Program $program): self
+    public function removeFromWatchlist(Program $program): self
     {
         $this->watchlist->removeElement($program);
 
         return $this;
+    }
+
+    public function isInWatchlist(Program $program)
+    {
+        if ($this->watchlist->contains($program)) { return true;
+        } else { return false;
+        }
     }
 }
