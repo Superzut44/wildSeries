@@ -56,7 +56,7 @@ class ProgramController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'La nouvelle série a été créée');
-            
+
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to('your_email@example.com')
@@ -211,5 +211,23 @@ class ProgramController extends AbstractController
         }
 
         return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/watchlist', name: '_watchlist', methods: ['GET', 'POST'])]
+    public function addToWatchlist(Request $request, Program $program, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->getUser()->getWatchlist()->contains($program)) {
+            $this->getUser()->removeFromWatchlist($program);
+        } else {
+            $this->getUser()->addToWatchlist($program);
+        }
+        $entityManager->flush();
+
+        return $this->render(
+            'program/show.html.twig',
+            [
+            'program' => $program,
+            ]
+        );
     }
 }

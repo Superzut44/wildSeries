@@ -8,11 +8,19 @@
         <div class="program_show_text">
             <h1>{{ program.title }}</h1>
             <p class="program_show_summary">{{ program.summary }}</p>
-            <h3>Catégorie :</h3> 
+            <h3>Catégorie :</h3>
             <p>{{ program.category.name }}</p>
+
+            {% if is_granted("ROLE_USER") %}
+                <a href="{{ path('program_watchlist', {id: program.id})}}">
+                    <i class="bi {{ app.user.isInWatchlist(program) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+                </a>
+            {%endif%}
+
             {% if is_granted("ROLE_ADMIN") %}
                 <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
             {%endif%}
+
             {% for season in program.seasons %}
                 <div class="program_show_season-show">
                     <a href="{{ path('program_season_show', { slug: program.slug , season: season.id }) }}">{{ season.description }}</a>

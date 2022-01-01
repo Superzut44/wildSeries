@@ -68,10 +68,17 @@ class Program
      */
     private $slug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="watchlist")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $viewers;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
         $this->actors = new ArrayCollection();
+        $this->viewers = new ArrayCollection();
     }
 
     public function getTitle(): ?string
@@ -204,6 +211,33 @@ class Program
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getViewers(): Collection
+    {
+        return $this->viewers;
+    }
+
+    public function addViewer(User $viewer): self
+    {
+        if (!$this->viewers->contains($viewer)) {
+            $this->viewers[] = $viewer;
+            $viewer->addToWatchlist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeViewer(User $viewer): self
+    {
+        if ($this->viewers->removeElement($viewer)) {
+            $viewer->removeFromWatchlist($this);
+        }
 
         return $this;
     }
