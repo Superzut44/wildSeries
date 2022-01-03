@@ -8,6 +8,7 @@ use App\Entity\Season;
 use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Entity\Program;
+use App\Entity\User;
 use App\Service\Slugify;
 use App\Form\CommentType;
 use App\Form\ProgramType;
@@ -88,7 +89,7 @@ class ProgramController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $search = $form->getData()['search'];
-            $programs = $programRepository->findLikeNameAndActorName($search);
+            $programs = $programRepository->DQLfindLikeNameAndActorName($search);
         } else {
             $programs = $programRepository->findAll();
         }
@@ -168,7 +169,6 @@ class ProgramController extends AbstractController
     public function edit(
         Request $request,
         Program $program,
-        Season $season,
         EntityManagerInterface $entityManager,
         Slugify $slugify
     ): Response {
@@ -193,7 +193,6 @@ class ProgramController extends AbstractController
         return $this->renderForm(
             'program/edit.html.twig',
             [
-            'season' => $season,
             'program' => $program,
             'form' => $form,
             ]
