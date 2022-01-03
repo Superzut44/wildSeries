@@ -29,16 +29,29 @@
         </li>
         {% if app.user %}
         <li class="nav-item">
-          <a class="nav-link disabled">{{ app.user.email }}</a>
+          <a class="nav-link disabled">{% trans with {'%useremail%': app.user.email} %}_useremail{% endtrans %}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">Mon compte</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_logout') }}">{{ 'account.logout'|trans }}</a>
+        </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('login') }}">Se connecter</a>
+          <a class="nav-link" href="{{ path('login') }}">{{ 'account.login'|trans }}</a>
         </li>
         {% endif %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </li>
       </ul>
     </div>
   </div>
