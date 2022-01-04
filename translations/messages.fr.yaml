@@ -1,3 +1,3 @@
-account.login: 'Se connecter'
-account.logout: 'Se déconnecter'
-_useremail: '%useremail%'
+account.login: "Se connecter"
+account.logout: "Se déconnecter"
+_useremail: "%useremail%"
