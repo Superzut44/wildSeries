@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All categories{% endblock %}
-
 {% block body %}
 
-<h1>Catégories :</h1>
+<h1>{{ 'Categories'|trans }} :</h1>
 
 <ul>
     {% for category in categories %}
@@ -14,5 +12,5 @@
     {% endfor %}
 </ul>
 
-    <a href="{{ path('category_new') }}">Ajout à la liste</a>
+    <a href="{{ path('category_new') }}">{{ 'Create new category'|trans }}</a>
 {% endblock %}

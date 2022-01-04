@@ -1,12 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
-
 {% block body %}
 {% if is_granted("ROLE_USER") %}
-    <h1>Mon compte</h1>
+    <h1>{{ 'My account'|trans }}</h1>
 {% else %}
-    <h1>Créer un compte</h1>
+    <h1>{{ 'Create an account'|trans }}</h1>
 {% endif %}
     {{ form_start(securityForm) }}
         {{ form_row(securityForm.email) }}
@@ -15,7 +13,7 @@
         }) }}
         {{ form_row(securityForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn">{{ 'Register'|trans }}</button>
     {{ form_end(securityForm) }}   
 
 {% endblock %}
