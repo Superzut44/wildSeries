@@ -1,3 +1,13 @@
-account.login: "Se connecter"
-account.logout: "Se déconnecter"
-_useremail: "%useremail%"
+Hello_useremail: 'Bonjour %useremail%'
+language: Langue
+Categories: Catégories
+Series: Séries
+Seasons: Saisons
+Episodes: Episodes
+Actors: Acteurs
+Comments: Commentaires
+My_account: 'Mon compte'
+Log_out: Déconnexion
+Log_in: Connexion
+English: Anglais
+French: Français
