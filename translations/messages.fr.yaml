@@ -1,4 +1,3 @@
-Hello_useremail: 'Bonjour %useremail%'
 language: Langue
 Categories: Catégories
 Series: Séries
@@ -6,8 +5,28 @@ Seasons: Saisons
 Episodes: Episodes
 Actors: Acteurs
 Comments: Commentaires
-My_account: 'Mon compte'
 Log_out: Déconnexion
 Log_in: Connexion
 English: Anglais
 French: Français
+Delete: Supprimer
+Welcome: Bienvenue
+'Back to the list': 'Retour à la liste'
+'Hello useremail': 'Salut %useremail%'
+'My account': 'Mon compte'
+'Log out': Déconnexion
+'Log in': Connexion
+Save: Enregistrer
+Season: Saison
+Episode: Episode
+'Synopsis of episode': 'Résumé de l''épisode'
+'Add a comment': 'Ajouter un commentaire'
+'Are you sure you want to delete this item': 'Etes-vous sûr de vouloir supprimer cet élément'
+'Add to list': 'Ajouter à la liste'
+'Back to home': 'Retour à l''acceuil'
+'All series': 'Toutes les séries'
+'Search for a series': 'Recherche une série'
+'See the notice': 'Voir l''avis'
+Category: Catégorie
+'No series found': 'Pas de série trouvée'
+'Edit the season': 'Editer une saison'

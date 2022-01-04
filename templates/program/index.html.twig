@@ -1,30 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}All programs{% endblock %}
-
 {% block body %}
-    <a href="{{ path('program_new') }}">Ajout à la liste</a></br>
-    <a href="{{ path('app_index') }}">Retour à l'accueil</a>
-    <h1>Toutes les séries</h1>
+    <a href="{{ path('program_new') }}">{{ 'Add to list'|trans }}</a></br>
+    <a href="{{ path('app_index') }}">{{ 'Back to home'|trans }}</a>
+    <h1>{{ 'All series'|trans }}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button>Recherche une série</button>
+    <button>{{ 'Search for a series'|trans }}</button>
     {{ form_end(form) }}
 
     <section class="program_index_container">
         {% for program in programs %}
             <figure class="program_index_figure">
-            <a href="{{ path("program_show", { slug: program.slug }) }}">Voir la fiche</a>
+            <a href="{{ path("program_show", { slug: program.slug }) }}">{{ 'See the notice'|trans }}</a>
             <img src="{{program.poster}}" alt="{{ program.title }} poster">
                 <figcaption class="program_index_figcaption">
                     <p>{{ program.title }}</p>
-                    <p>Catégorie : {{ program.category.name }}</p>
+                    <p>{{ 'Category'|trans }} : {{ program.category.name }}</p>
                 </figcaption>
                 <p class="program_index_p">{{ program.summary }}</p>
             </figure>
         {% else %}
-            <p>Aucune série trouvée.</p>
+            <p>{{ 'No series found'|trans }}.</p>
         {% endfor %}
     </section>
 {% endblock %}

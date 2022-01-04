@@ -3,14 +3,14 @@
 {% block body %}
 <div class="program_season_show_container">
     <h1>{{ program.title }}</h1>
-    <h2>Saison {{ season.number }}</h2>
-    <p>Liste des épisodes</p>
+    <h2>{{ 'Season'|trans }} {{ season.number }}</h2>
+    <p>{{ 'List of episodes'|trans }}</p>
     <ul class="program_season_show_ul">
     {% for episode in season.episodes %}
         <li>
             <a href="{{ path('program_episode_show', { 
                 program_slug: program.slug , season: season.id , episode_slug: episode.slug }) }}"
-                >Episode {{ episode.number }} : {{ episode.title }}</a>
+                >{{ 'Episode'|trans }} {{ episode.number }} : {{ episode.title }}</a>
         </li>
     {% endfor %}
     </ul>

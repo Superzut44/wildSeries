@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>New program</title>
+    <title>{{ 'New program'|trans }}</title>
 </head>
 <body>
-    <h1>New program {{ program.title }} created</h1>
-    <p>Hello, the new program {{ program.title }} has been created on Wild Series</p>
-    <p>Summary : {{program.summary }}</p>
+    <h1>{{ 'New program'|trans }} {{ program.title }} {{ 'Created'|trans }}</h1>
+    <p>{{ 'Hello, the new program'|trans }} {{ program.title }} {{ 'has been created on Wild Series'|trans }}</p>
+    <p>{{ 'Summary'|trans }} : {{program.summary }}</p>
 </body>
 </html>
