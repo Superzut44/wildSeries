@@ -55,7 +55,7 @@ class ProgramRepository extends ServiceEntityRepository
     public function DQLfindLikeNameAndActorName(string $name)
     {
         $em = $this->getEntityManager();
-        $query = $em->createQuery("SELECT p FROM App\Entity\Program p JOIN App\Entity\Actor a WHERE p.title LIKE '%$name%' OR a.name LIKE '%$name%' ORDER BY p.title ASC");
+        $query = $em->createQuery("SELECT p FROM App\Entity\Program p JOIN p.actors a WHERE p.title LIKE '%$name%' OR a.name LIKE '%$name%' ORDER BY p.title ASC");
 
         return $query->execute();
     }

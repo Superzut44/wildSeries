@@ -7,12 +7,8 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        
         <link rel="icon" href="{{ asset('build/images/favicon.ico') }}" />
-    
+
     </head>
     <body>
         <header>{% include "nav-bar.html.twig" %}</header>
@@ -24,5 +20,9 @@
             {% endfor %}
         {% endfor %}
         {% block body %}{% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
 </html>
