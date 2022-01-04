@@ -10,7 +10,7 @@
     <p>{{ 'Episode title'|trans }} : {{ episode.title }}</3>
     <p>{{ 'Number'|trans }} : {{ episode.number }}</p>
     <p>{{ 'Season episode'|trans }} : {{ episode.season.program.title }}</p>
-    <a href="{{ path('program_episode_show', { 
+    <a href="{{ path('program_episode_show', {
                 program_slug: episode.season.program.slug , season: episode.season.id , episode_slug: episode.slug }) }}"
                 >{{ 'Link to the episodes of this series'|trans }}</a>
 </body>
