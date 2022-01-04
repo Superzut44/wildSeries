@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}WILD SERIES{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
 
         <link rel="icon" href="{{ asset('build/images/favicon.ico') }}" />
 
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
     </head>
     <body>
         <header>{% include "nav-bar.html.twig" %}</header>
