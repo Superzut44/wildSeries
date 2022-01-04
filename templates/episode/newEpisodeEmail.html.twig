@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>New episode</title>
+    <title>{{ 'New episode'|trans }}</title>
 </head>
 <body>
-    <h1>Nouvel épisode créer</h1>
-    <p>Titre de l'épisode : {{ episode.title }}</3>
-    <p>Numéro : {{ episode.number }}</p>
-    <p>Episode rattaché à la série : {{ episode.season.program.title }}</p>
+    <h1>{{ 'New episode created'|trans }}</h1>
+    <p>{{ 'Episode title'|trans }} : {{ episode.title }}</3>
+    <p>{{ 'Number'|trans }} : {{ episode.number }}</p>
+    <p>{{ 'Season episode'|trans }} : {{ episode.season.program.title }}</p>
     <a href="{{ path('program_episode_show', { 
                 program_slug: episode.season.program.slug , season: episode.season.id , episode_slug: episode.slug }) }}"
-                >Lien vers les épisodes de cette série</a>
+                >{{ 'Link to the episodes of this series'|trans }}</a>
 </body>
 </html>

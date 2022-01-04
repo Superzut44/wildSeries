@@ -8,7 +8,7 @@
     "file-loader": "^6.0.0",
     "jquery": "^3.6.0",
     "regenerator-runtime": "^0.13.2",
-    "sass": "^1.44.0",
+    "sass": "^1.45.2",
     "sass-loader": "^12.4.0",
     "stimulus": "^2.0.0",
     "webpack-notifier": "^1.6.0"

@@ -1,24 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actor{% endblock %}
-
 {% block body %}
-    <h1>Actor</h1>
+    <h1>{{ 'Actor'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ actor.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th>{{ 'Name'|trans }}</th>
                 <td>{{ actor.name }}</td>
             </tr>
         </tbody>
     </table>
 
-    <strong>Séries :</strong>
+    <strong>{{ 'Series'|trans }} :</strong>
     {% if actor.programs %}
     <ul>
         {% for program in actor.programs %}
@@ -26,14 +20,14 @@
                 <a href="{{ path('program_show', { slug: program.slug }) }}">{{ program.title }}</a>
             </li>
         {% else %}
-            <li>Aucune série pour cet acteur</li>
+            <li>{{ 'No series for this actor'|trans }}</li>
         {% endfor %}
     </ul>
     {% endif %}
 
-    <a href="{{ path('actor_index') }}">back to list</a>
+    <a href="{{ path('actor_index') }}">{{ 'Back to list'|trans }}</a>
 
-    <a href="{{ path('actor_edit', {'id': actor.id}) }}">edit</a>
+    <a href="{{ path('actor_edit', {'id': actor.id}) }}">{{ 'Edit'|trans }}</a>
 
     {{ include('actor/_delete_form.html.twig') }}
 {% endblock %}

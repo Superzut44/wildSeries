@@ -1,57 +1,54 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Wild séries</a>
+    <a class="navbar-brand" href="#">WILD SERIES</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('category_index') }}">Catégories</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('category_index') }}">{{ 'Categories'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('program_index') }}">Séries(programs)</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('program_index') }}">{{ 'Series'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('season_index') }}">Saisons</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('season_index') }}">{{ 'Seasons'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('episode_index') }}">Episodes</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('episode_index') }}">{{ 'Episodes'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('actor_index') }}">Acteurs</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('actor_index') }}">{{ 'Actors'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('comment_index') }}">Commentaires</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mes favoris</a>
+          <a class="nav-link active" aria-current="page" href="{{ path('comment_index') }}">{{ 'Comments'|trans }}</a>
         </li>
         {% if app.user %}
         <li class="nav-item">
-          <a class="nav-link disabled">{% trans with {'%useremail%': app.user.email} %}_useremail{% endtrans %}</a>
+          <a class="nav-link disabled">{% trans with {'%useremail%': app.user.email} %}Hello useremail{% endtrans %}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">Mon compte</a>
+          <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}">{{ 'My account'|trans }}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_logout') }}">{{ 'account.logout'|trans }}</a>
+          <a class="nav-link" href="{{ path('app_logout') }}">{{ 'Log out'|trans }}</a>
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('login') }}">{{ 'account.login'|trans }}</a>
+          <a class="nav-link" href="{{ path('login') }}">{{ 'Log in'|trans }}</a>
         </li>
         {% endif %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Langue
+              {{ 'language'|trans }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                  <a class="dropdown-item" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">Anglais</a>
+                  <a class="dropdown-item" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">{{ 'English'|trans }}</a>
               </li>
               <li>
-                  <a class="dropdown-item" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">Français</a>
+                  <a class="dropdown-item" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">{{ 'French'|trans }}</a>
               </li>
           </ul>
         </li>

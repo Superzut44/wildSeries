@@ -1,14 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Série #{{ program.id }}{% endblock %}
-
 {% block body %}
     <section class="program_show_container">
         <img class="program_show_img" src="{{program.poster}}" alt="{{ program.title }} poster">
         <div class="program_show_text">
             <h1>{{ program.title }}</h1>
             <p class="program_show_summary">{{ program.summary }}</p>
-            <h3>Catégorie :</h3>
+            <h3>{{ 'Category'|trans }} :</h3>
             <p>{{ program.category.name }}</p>
 
             {% if is_granted("ROLE_USER") %}
@@ -18,7 +16,7 @@
             {%endif%}
 
             {% if is_granted("ROLE_ADMIN") %}
-                <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">Éditer</a>
+                <a href="{{ path('program_edit', { 'slug': program.slug} ) }}">{{ 'Edit'|trans }}</a>
             {%endif%}
 
             {% for season in program.seasons %}
@@ -27,19 +25,19 @@
                 </div>
             {% endfor %}
             {% if program.actors %}
-            <h3>Liste des acteurs :</h3>
+            <h3>{{ 'List of actors'|trans }} :</h3>
             <ul>
                 {% for actor in program.actors %}
                     <li>
                         <a href="{{ path('actor_show', { id: actor.id }) }}">{{ actor.name }}</a>
                     </li>
             {% else %}
-                <li>Aucun acteur pour cette série</li>
+                <li>{{ 'No actor for this series'|trans }}</li>
             {% endfor %}
             </ul>
             {% endif %}
             <a href="{{ path('program_index') }}">
-                Retour à la liste des programmes
+                {{ 'Back to the series list'|trans }}
             </a>
         </div>
     </section>

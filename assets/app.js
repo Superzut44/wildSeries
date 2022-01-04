@@ -9,6 +9,7 @@
 import "./styles/app.scss";
 // start the Stimulus application
 import "./bootstrap";
+
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const $ = require("jquery");
