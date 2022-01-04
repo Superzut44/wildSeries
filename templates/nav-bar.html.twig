@@ -43,11 +43,17 @@
         </li>
         {% endif %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a href="./?langue=fr" class="dropdown-item">Français</a>
-            <a href="./?langue=en" class="dropdown-item">Anglais</a>
-          </div>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Langue
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                  <a class="dropdown-item" href="./?langue=en">Anglais</a>
+              </li>
+              <li>
+                  <a class="dropdown-item" href="./?langue=fr">Français</a>
+              </li>
+          </ul>
         </li>
       </ul>
     </div>
