@@ -12,9 +12,6 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             {{ render(controller('App\\Controller\\HomeController::navbarTop')) }}
-            {% for category in categories %}
-              <li><a class="dropdown-item" href="{{ path('category_show', {categoryName:category.name}) }}">{{ category.name }}</a></li>
-            {% endfor %}
           </ul>
         </li>
         <li class="nav-item">

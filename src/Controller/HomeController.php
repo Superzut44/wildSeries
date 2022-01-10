@@ -10,9 +10,8 @@ class HomeController extends AbstractController
 {
     public function navbarTop(CategoryRepository $categoryRepository): Response
     {
-        return $this->render('base.html.twig', [
+        return $this->render('layout/navbartop.html.twig', [
             'categories' => $categoryRepository->findBy([], ['id' => 'DESC'])
         ]);
     }
 }
-    
