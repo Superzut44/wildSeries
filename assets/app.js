@@ -55,18 +55,17 @@ function addToWatchlist(event) {
     });
 }
 
-const alerts = document.querySelectorAll('[class*="alert-"]')
+const alerts = document.querySelectorAll('[class*="alert-"]');
 for (const alert of alerts) {
-    setTimeout( function() {
-        console.log("hello");
-        const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
-        bootstrapAlert.close();
-    }, 5000);
+  setTimeout(function () {
+    console.log("hello");
+    const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
+    bootstrapAlert.close();
+  }, 5000);
 }
 
-$("document").ready(function(){
-    setTimeout(function(){
-        $("div.alert").remove();
-    }, 5000 ); // 5 secs
-
+$("document").ready(function () {
+  setTimeout(function () {
+    $("div.alert").remove();
+  }, 5000); // 5 secs
 });
