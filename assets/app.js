@@ -13,6 +13,8 @@ import "./bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const $ = require("jquery");
+
+global.$ = global.jQuery = $;
 // this "modifies" the jquery module: adding behavior to it
 // the bootstrap module doesn't export/return anything
 require("bootstrap");
@@ -53,3 +55,19 @@ function addToWatchlist(event) {
       }
     });
 }
+
+const alerts = document.querySelectorAll('[class*="alert-"]')
+for (const alert of alerts) {
+    setTimeout( function() {
+        console.log("hello");
+        const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
+        bootstrapAlert.close();
+    }, 5000);
+}
+
+$("document").ready(function(){
+    setTimeout(function(){
+        $("div.alert").remove();
+    }, 5000 ); // 5 secs
+
+});
