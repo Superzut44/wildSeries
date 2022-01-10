@@ -22,9 +22,7 @@ require("bootstrap");
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
-$(document).ready(function () {
-  $('[data-toggle="popover"]').popover();
-});
+$(document).ready(function() { $('[data-toggle="popover"]').popover(); });
 
 document.querySelector("#watchlist").addEventListener("click", addToWatchlist);
 
@@ -36,37 +34,38 @@ function addToWatchlist(event) {
   let link = watchlistLink.href;
   // Send an HTTP request with fetch to the URI defined in the href
   fetch(link)
-    // Extract the JSON from the response
-    .then((res) => res.json())
-    // Then update the icon
-    .then(function (res) {
-      let watchlistIcon = watchlistLink.firstElementChild;
-      if (res.isInWatchlist) {
-        watchlistIcon.classList.remove("bi-heart"); // Remove the .bi-heart (empty heart) from classes in
-        // <i> element
-        watchlistIcon.classList.add("bi-heart-fill"); // Add the .bi-heart-fill (full heart) from
-        // classes in <i> element
-      } else {
-        watchlistIcon.classList.remove("bi-heart-fill"); // Remove the .bi-heart-fill (full heart) from
-        // classes in <i> element
-        watchlistIcon.classList.add("bi-heart"); // Add the .bi-heart (empty heart) from classes in
-        // <i> element
-      }
-    });
+      // Extract the JSON from the response
+      .then((res) => res.json())
+      // Then update the icon
+      .then(function(res) {
+        let watchlistIcon = watchlistLink.firstElementChild;
+        if (res.isInWatchlist) {
+          watchlistIcon.classList.remove(
+              "bi-heart"); // Remove the .bi-heart (empty heart) from classes in
+          // <i> element
+          watchlistIcon.classList.add(
+              "bi-heart-fill"); // Add the .bi-heart-fill (full heart) from
+          // classes in <i> element
+        } else {
+          watchlistIcon.classList.remove(
+              "bi-heart-fill"); // Remove the .bi-heart-fill (full heart) from
+          // classes in <i> element
+          watchlistIcon.classList.add(
+              "bi-heart"); // Add the .bi-heart (empty heart) from classes in
+          // <i> element
+        }
+      });
 }
 
 const alerts = document.querySelectorAll('[class*="alert-"]')
 for (const alert of alerts) {
-    setTimeout( function() {
-        console.log("hello");
-        const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
-        bootstrapAlert.close();
-    }, 5000);
+  setTimeout(function() {
+    console.log("hello");
+    const bootstrapAlert = bootstrap.Alert.getOrCreateInstance(alert);
+    bootstrapAlert.close();
+  }, 5000);
 }
 
-$("document").ready(function(){
-    setTimeout(function(){
-        $("div.alert").remove();
-    }, 5000 ); // 5 secs
-
+$("document").ready(function() {
+  setTimeout(function() { $("div.alert").remove(); }, 5000); // 5 secs
 });
