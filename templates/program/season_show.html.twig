@@ -8,7 +8,7 @@
     <ul class="program_season_show_ul">
     {% for episode in season.episodes %}
         <li>
-            <a href="{{ path('program_episode_show', { 
+            <a href="{{ path('program_episode_show', {
                 program_slug: program.slug , season: season.id , episode_slug: episode.slug }) }}"
                 >{{ 'Episode'|trans }} {{ episode.number }} : {{ episode.title }}</a>
         </li>
