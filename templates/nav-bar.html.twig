@@ -1,13 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">WILD SERIES</a>
+    <a class="navbar-brand">WILD SERIES</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ path('category_index') }}">{{ 'Categories'|trans }}</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ 'Categories'|trans }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {{ render(controller('App\\Controller\\HomeController::navbarTop')) }}
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{ path('program_index') }}">{{ 'Series'|trans }}</a>
