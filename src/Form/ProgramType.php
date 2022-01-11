@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;   // FileType    PassWordType
 use App\Entity\Actor;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ProgramType extends AbstractType
 {
@@ -17,7 +18,12 @@ class ProgramType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('summary', TextType::class)
-            ->add('poster', TextType::class)    // FileType::class    PasswordType
+            
+            ->add('posterFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_uri' => true, // not mandatory, default is true
+                ])
             ->add('category', null, ['choice_label' => 'name'])
             ->add(
                 'actors', EntityType::class, [
@@ -25,8 +31,7 @@ class ProgramType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                ]
-            );
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
