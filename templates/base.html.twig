@@ -11,7 +11,9 @@
         {% endblock %}
     </head>
     <body>
-        <header>{% include "nav-bar.html.twig" %}</header>
+        <header>
+            {% include "nav-bar.html.twig" %}
+        </header>
         {% for category, messages in app.flashes %}
             {% for message in messages %}
                 <div class="alert alert-{{ category }}">

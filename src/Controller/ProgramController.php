@@ -151,6 +151,12 @@ class ProgramController extends AbstractController
             $comment->setAuthor($this->getUser());
             $entityManager->persist($comment);
             $entityManager->flush();
+
+            return $this->redirectToRoute('program_episode_show', [
+                'program_slug' => $program->getSlug(),
+                'season' => $season->getId(),
+                'episode_slug' => $episode->getSlug()
+            ]);
         }
 
         return $this->renderForm(
