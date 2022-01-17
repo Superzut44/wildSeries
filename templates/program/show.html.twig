@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="program_show_container">
-        <img class="program_show_img" src="{{program.poster}}" alt="{{ program.title }} poster">
+        <img class="program_show_img" src="{{ asset('uploads/' ~ program.poster )}}" alt="{{ program.title }} poster">
         <div class="program_show_text">
             <h1>{{ program.title }}</h1>
             <p class="program_show_summary">{{ program.summary }}</p>

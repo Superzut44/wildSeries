@@ -14,7 +14,7 @@
         {% for program in programs %}
             <figure class="program_index_figure">
             <a href="{{ path("program_show", { slug: program.slug }) }}">{{ 'See the notice'|trans }}</a>
-            <img src="{{program.poster}}" alt="{{ program.title }} poster">
+            <img src="{{ asset('uploads/' ~ program.poster )}}" alt="{{ program.title }} poster">
                 <figcaption class="program_index_figcaption">
                     <p>{{ program.title }}</p>
                     <p>{{ 'Category'|trans }} : {{ program.category.name }}</p>
