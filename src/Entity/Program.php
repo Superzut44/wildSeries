@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ProgramRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProgramRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 //Ici on importe le package Vich, que l’on utilisera sous l’alias “Vich”
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
@@ -87,6 +89,11 @@ class Program
      * @ORM\JoinColumn(nullable=true)
      */
     private $viewers;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTimeInterface $updatedAt;
 
     public function __construct()
     {
@@ -270,6 +277,20 @@ class Program
     public function setPosterFile(File $image = null): Program
     {
         $this->posterFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+          }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

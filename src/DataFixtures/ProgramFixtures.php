@@ -2,11 +2,12 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use App\Entity\Program;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Service\Slugify;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -59,6 +60,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setTitle($programData['title']);
             $program->setSummary($programData['summary']);
             $program->setPoster($programData['poster']);
+            $program->setUpdatedAt(new DateTime('now'));
             $program->setCategory($this->getReference($programData['categoryReference']));
             $slug = $this->slugify->generate($program->getTitle());
             $program->setSlug($slug);
