@@ -52,8 +52,12 @@ class Program
     //On ne rajoute pas de données de type file en bdd
     /**
      * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
-     * @var File
-     */
+    * @Assert\File(
+    *     maxSize = "1M",
+    *     mimeTypes = {"image/jpeg", "image/png", "image/webp"},
+    * )
+    * @var File
+    */
     private $posterFile;
 
     /**

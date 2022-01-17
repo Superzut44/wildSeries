@@ -22,7 +22,7 @@ class ActorType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 ]
-            );
+            )
         ;
     }
 
