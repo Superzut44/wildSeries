@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="program_show_container">
-        <img class="program_show_img" src="{{program.poster}}" alt="{{ program.title }} poster">
+        <img class="program_show_img" src="{{ asset('uploads/' ~ program.poster )}}" alt="{{ program.title }} poster">
         <div class="program_show_text">
             <h1>{{ program.title }}</h1>
             <p class="program_show_summary">{{ program.summary }}</p>
@@ -30,6 +30,7 @@
                 {% for actor in program.actors %}
                     <li>
                         <a href="{{ path('actor_show', { id: actor.id }) }}">{{ actor.name }}</a>
+                        <img class="actor-show-img" src="{{ asset('uploads/' ~ actor.photo )}}" alt="{{ actor.name }} photo">
                     </li>
             {% else %}
                 <li>{{ 'No actor for this series'|trans }}</li>

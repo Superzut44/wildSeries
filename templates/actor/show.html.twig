@@ -9,6 +9,9 @@
                 <th>{{ 'Name'|trans }}</th>
                 <td>{{ actor.name }}</td>
             </tr>
+            <tr>
+                <img class="actor-show-img" src="{{ asset('uploads/' ~ actor.photo )}}" alt="{{ actor.name }} photo">
+            </tr>
         </tbody>
     </table>
 

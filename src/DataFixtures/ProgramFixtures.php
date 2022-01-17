@@ -2,11 +2,12 @@
 
 namespace App\DataFixtures;
 
+use DateTime;
 use App\Entity\Program;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Service\Slugify;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -14,31 +15,31 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         [
             "title"=>"The Big Bang Theory",
             "summary"=>"Leonard Hofstadter et Sheldon Cooper vivent en colocation à Pasadena, ville de l'agglomération de Los Angeles. Ce sont tous deux des physiciens surdoués, « geeks » de surcroît. C'est d'ailleurs autour de cela qu'est axée la majeure partie comique de la série. Ils partagent quasiment tout leur temps libre avec leurs deux amis Howard Wolowitz et Rajesh Koothrappali pour jouer à des jeux vidéo comme Halo, organiser un marathon de la saga Star Wars, jouer à des jeux de société comme le Boggle klingon ou de rôles tel que Donjons et Dragons, voire discuter de théories scientifiques très complexes.Leur univers routinier est perturbé lorsqu'une jeune femme, Penny, s'installe dans l'appartement d'en face. Leonard a immédiatement des vues sur elle et va tout faire pour la séduire ainsi que l'intégrer au groupe et à son univers, auquel elle ne connaît rien.",
-            "poster"=>"https://m.media-amazon.com/images/I/81ksNXITStL._AC_SX466_.jpg",
+            "poster"=>"bigbandtheory-61e5491c95f62004320356.jpg",
             "categoryReference" => 'category_Humour'
         ],
         [
             "title"=>"Spartacus",
             "summary"=>"Spartacus est une série péplum américaine en 39 épisodes créée par Steven S. DeKnight sur la vie du gladiateur Spartacus et diffusée du 22 janvier 2010 au 12 avril 2013 sur Starz1. Robert Tapert et Sam Raimi en sont les producteurs exécutifs. ",
-            "poster"=>"http://jmj41.com/video/affiches/Filmotech_01937.jpg",
+            "poster"=>"spartacus-61e5530a348db759270706.jpg",
             "categoryReference" => 'category_Guerre'
         ],
         [
             "title"=>"Lucifer",
             "summary"=>"Lucifer est une série télévisée américaine créée par Tom Kapinos, adaptée du personnage de bandes dessinées",
-            "poster"=>"https://fr.web.img4.acsta.net/pictures/15/11/10/13/35/055302.jpg",
+            "poster"=>"lucifer-61e552fec42b3190151668.jpg",
             "categoryReference" => 'category_Fantastique'
         ],
         [
             "title"=>"Breaking Bad",
             "summary"=>"Breaking Bad, ou Breaking Bad : Le Chimiste1 au Québec, est une série télévisée américaine en 62 épisodes de 47 minutes, créée par Vince Gilligan, diffusée simultanément du 20 janvier 2008 au 29 septembre 2013 sur AMC aux États-Unis et au Canada, et ensuite sur Netflix. ",
-            "poster"=>"http://www.asud.org/wp-content/uploads/2014/01/Breaking-bad.jpg",
+            "poster"=>"breaking-bad-61e5453af3891956157383.jpg",
             "categoryReference" => 'category_Fantastique'
         ],
         [
             "title"=>"The Walking Dead",
             "summary"=>"The Walking DeadNote 1 est une série télévisée d'horreur et dramatique américaine, adaptée par Frank Darabont et Robert Kirkman, créateur de la bande dessinée du même nom, aux États-Unis diffusée depuis le 31 octobre 2010 sur AMC1. ",
-            "poster"=>"https://photos.tf1.fr/700/933/the-walking-dead-vignette_portrait-09f433-0@1x.webp",
+            "poster"=>"the-walking-dead-61e55381c495e460188045.jpg",
             "categoryReference" => 'category_Horreur'
         ],
 
@@ -59,6 +60,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setTitle($programData['title']);
             $program->setSummary($programData['summary']);
             $program->setPoster($programData['poster']);
+            $program->setUpdatedAt(new DateTime('now'));
             $program->setCategory($this->getReference($programData['categoryReference']));
             $slug = $this->slugify->generate($program->getTitle());
             $program->setSlug($slug);

@@ -3,11 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Actor;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Program;
+use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActorType extends AbstractType
 {
@@ -22,7 +23,12 @@ class ActorType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 ]
-            );
+            )
+            ->add('photoFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_uri' => true, // not mandatory, default is true
+                ])
         ;
     }
 

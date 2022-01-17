@@ -2,16 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\ProgramRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProgramRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+//Ici on importe le package Vich, que l’on utilisera sous l’alias “Vich”
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity(repositoryClass=ProgramRepository::class)
- * @UniqueEntity("title")
+ * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
+ * @Vich\Uploadable
  */
 class Program
 {
@@ -38,13 +43,28 @@ class Program
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $poster;
+
+    //On va créer un nouvel attribut à notre entité, qui ne sera pas lié à une colonne
+    // Tu peux d’ailleurs voir que l’annotation ORM column n’est pas spécifiée car
+    //On ne rajoute pas de données de type file en bdd
+    /**
+     * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
+    * @Assert\File(
+    *     maxSize = "1M",
+    *     mimeTypes = {"image/jpeg", "image/png", "image/webp"},
+    * )
+    * @var File
+    */
+    private $posterFile;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="programs")
      * @ORM\JoinColumn(nullable=false)
      */
+    
     private $category;
 
     /**
@@ -73,6 +93,11 @@ class Program
      * @ORM\JoinColumn(nullable=true)
      */
     private $viewers;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private DateTimeInterface $updatedAt;
 
     public function __construct()
     {
@@ -238,6 +263,38 @@ class Program
         if ($this->viewers->removeElement($viewer)) {
             $viewer->removeFromWatchlist($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of posterFile
+     */
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    /**
+     * Set the value of posterFile
+     */
+    public function setPosterFile(File $image = null): Program
+    {
+        $this->posterFile = $image;
+        if ($image) {
+            $this->updatedAt = new DateTime('now');
+          }
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
