@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity(repositoryClass=ProgramRepository::class)
- * @UniqueEntity("title")
- * //On précise à l’entité que nous utiliserons l’upload du package Vich uploader
+ * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
  * @Vich\Uploadable
  */
 class Program
@@ -60,6 +58,7 @@ class Program
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="programs")
      * @ORM\JoinColumn(nullable=false)
      */
+    
     private $category;
 
     /**
